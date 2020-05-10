@@ -1,0 +1,21 @@
+{{#if error }}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{error}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/if}}
+
+
+
+{{#each errors}}
+<!--each sirve para RECORRER el arreglo de errores si existiera un error-->
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <!--warning=amarillo danger=rojo-->
+  {{text}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/each}} 

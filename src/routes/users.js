@@ -9,7 +9,7 @@ const passport = require('passport');
 
 //creo la ruta donde los usuarios podran ingresar  ala apliacaion y autenticarse
 
-router.get('/users/signin', (req, res) => {
+router.get('/blabla/signin', (req, res) => {
     res.render('users/signin');
 });
 

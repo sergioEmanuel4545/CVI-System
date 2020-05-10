@@ -18,7 +18,7 @@ require('./database');
 // Settings
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views')); 
-//pone el correcto formato de las direcciones de las carpetas
+
  
 app.engine('.hbs',exphbs({
     defaultLayout:'main',
@@ -37,23 +37,26 @@ app.use(session({  //configuraciones basicas de modulo sessions
     resave: true,
     saveUninitialized: true,
 }));
-/* app.use(passport.initialize());
+app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash()); */
+app.use(flash());
 
 //global varialbes
-/* app.use((req, res, next) => {
+app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.nameU = req.user || null;
     next();
-})   */ 
+})
 
 // routes
 app.use(require('./routes/index'));
 app.use(require('./routes/notes'));
 app.use(require('./routes/users'));
+app.use(require('./routes/compras'));
+
+//app.use(require('./routes/ventas'));
 
 
 // static files

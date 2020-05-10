@@ -17,17 +17,16 @@
 </head>
 <body>
     
-   {{!--  {{> navigation }} --}}
+    {{> navigation }}
    
-    <!--etiqueta main que define el contenidop central de la aplicacion -->
+
     <main class="container p-4">
-        {{!-- {{> messages}}
-        {{> errors}} --}}
-        <!--errors el codigo partials para que se ejecute en la parte que necesitemos---> 
-    <!--clase de bootstrap para central el contenido de los lados y aparezca como un recuadro cortado--->  
+        {{> messages}}
+        {{> errors}}  
      {{{ body }}}
+     
     </main>
-    <p>Footer</p>
+    {{> footer }}
 
 <!-- SCRIPTS para que BOOTSATRAP (alerts fade)funcione completamente necesitamos poner justo al final de la plantilla principal los scripts de JQUERY JPOPPER y de JS   -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
