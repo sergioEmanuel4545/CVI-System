@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
-// se pone entre curly bracers cause solo requerimos el Schema de moongosee
 const bcrypt = require ('bcryptjs');
 
 
-//abajo se crea sus propiedades como un objeto en fomato JSON
 const UserSchema = new Schema ({
     name: {type: String, require: true},
     email: {type: String, require: true},

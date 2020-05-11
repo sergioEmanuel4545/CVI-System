@@ -1,16 +1,10 @@
-// usuario podra acceder donde l se podra autenticar en la aplicacion
 const express = require('express');
 const router = express.Router();
-//const User = require('../models/User');
+const User = require('../models/User');
 const passport = require('passport');   
 
-
-
-
-//creo la ruta donde los usuarios podran ingresar  ala apliacaion y autenticarse
-
-router.get('/blabla/signin', (req, res) => {
-    res.render('users/signin');
+router.get('/login', (req, res) => {
+    res.render('users/login');
 });
 
 
@@ -18,15 +12,12 @@ router.get('/blabla/signin', (req, res) => {
 
 
 
-/* router.post('/users/signin', passport.authenticate('local', {
-    successRedirect: '/notes',
-    failureRedirect: '/users/signin',
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
     failureFlash: true,
     successFlash: true          
-})); */
-
-
-
+})); 
 
 
 
@@ -37,7 +28,7 @@ router.get('/users/signup', (req, res) => {
     res.render('users/signup');
 });
 
-/* router.post('/users/signup', async (req, res) => {
+router.post('/users/signup', async (req, res) => {
     const { name,email,password,confirm_password } = req.body;
     const errors = [];
     if (name.length <= 0){
@@ -61,15 +52,15 @@ router.get('/users/signup', (req, res) => {
         const newUser = new User  ({name, email, password});
        newUser.password = await newUser.encryptPassword(password);
         await newUser.save();
-        req.flash('success_msg', 'You are registered');
+        req.flash('success_msg', 'creacion de cuenta completa');
         res.redirect('/users/signin');
     }
-}); */
+}); 
 
 
-/* router.get('/users/logout', (req, res) => {
+router.get('/users/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
-}); */
+    res.redirect('/login');
+}); 
 
 module.exports = router;

@@ -7,7 +7,7 @@
         <a class="nav-link active" href="#">Lista</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link lead" href="/proveedores/add">+</a>
+        <a class="nav-link lead" href="/proveedores/add"><i class="fas fa-plus-circle"></i></a>
       </li>
     </ul>
   </div>
@@ -27,13 +27,14 @@
           <tbody>
         {{#each listaProveedores}}
             <tr>
-                
+
               <td></td>
               <td>{{nombre}}</td>
               <td>{{nit}}</td>
               <td>{{contacto}}</td>
               <td>{{direccion}}</td>
               <td>{{descripcion}}</td>
+              <td><a href="/proveedores/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
             </tr>
                 
                     

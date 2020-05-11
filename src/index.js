@@ -13,7 +13,7 @@ const passport = require('passport');
 const app= express();
        //inicializamos la base de datos
 require('./database');
-/* require('./config/passport'); */
+require('./config/passport');
 
 // Settings
 app.set('port', process.env.PORT || 3000);

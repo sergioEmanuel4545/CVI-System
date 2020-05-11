@@ -62,21 +62,22 @@ router.post('/blabla/sergio1', /* isAuthenticated, */ async (req, res) => {
    
 });
 
-/* router.get('/notes/edit/:id', isAuthenticated, async (req,res) =>{
+router.get('/notes/edit/:id',/*  isAuthenticated, */ async (req,res) =>{
     const note = await Note.findById(req.params.id);
     res.render('notes/edit-note', {note});
-}); */
+}); 
 
-/* router.put('/notes/edit-note/:id', isAuthenticated, async (req, res) => {
+router.put('/notes/edit-note/:id', /* isAuthenticated, */ async (req, res) => {
  const {title, description} = req.body;
  await Note.findByIdAndUpdate(req.params.id, {title, description});
  req.flash('success_msg', 'Note updated successfully');
  res.redirect('/notes');
-}); */
+}); 
 
-/* router.delete('/notes/delete/:id', isAuthenticated, async (req, res) =>{
+router.delete('/notes/delete/:id', /* 
+ */ async (req, res) =>{
  await Note.findByIdAndDelete(req.params.id);
  req.flash('error_msg', 'Note deleted successfully');
  res.redirect('/notes');
-}) */
+}) 
 module.exports = router;

@@ -1,17 +1,15 @@
-// urls pra que el usuario puedar crear o midificasr una nueva nota
 const express = require('express');
 const router = express.Router();
 
 
 const Proveedor = require('../models/Proveedor');
-
-
 /* const { isAuthenticated } = require('../helpers/auth'); */
 
 
 router.get('/proveedores/add', /* isAuthenticated, */ (req,res) =>{
     res.render('Compras/addProveedores');
 });
+
 
 
 
@@ -54,22 +52,30 @@ router.post('/proveedores/add', /* isAuthenticated,*/ async (req, res) => {
 
 
  router.get('/proveedores', /* isAuthenticated, */ async (req,res) =>{ 
-    const listaProveedores = await (await Proveedor.find().lean());/* {user: req.user.id}  .sort({date: 'desc'}) */;
-   
+    const listaProveedores = await (await Proveedor.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
     res.render('Compras/proveedores', { listaProveedores });
 });
 
-/* router.get('/notes/edit/:id', isAuthenticated, async (req,res) =>{
-    const note = await Note.findById(req.params.id);
-    res.render('notes/edit-note', {note});
-}); */
+router.get('/proveedores/edit/:id',/*  isAuthenticated, */ async (req,res) =>{
+    const proveedor = await Proveedor.findById(req.params.id).lean();
+    res.render('Compras/editProveedores', { proveedor });
+}); 
 
-/* router.put('/notes/edit-note/:id', isAuthenticated, async (req, res) => {
- const {title, description} = req.body;
- await Note.findByIdAndUpdate(req.params.id, {title, description});
- req.flash('success_msg', 'Note updated successfully');
- res.redirect('/notes');
-}); */
+router.put('/proveedores/editProveedor/:id', /* isAuthenticated, */ async (req, res) => {
+    const {contacto,direccion, descripcion} = req.body;
+    await Proveedor.findByIdAndUpdate(req.params.id, {contacto,direccion, descripcion});
+    req.flash('success_msg', 'Proveedor actualizado correctamente');
+    res.redirect('/proveedores');
+   }); 
+
+
+   router.get('/compras', /* isAuthenticated, */ async (req,res) =>{ 
+    const listaProveedores = await (await Proveedor.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+    res.render('Compras/compras', { listaProveedores });
+});
+
+
+
 
 /* router.delete('/notes/delete/:id', isAuthenticated, async (req, res) =>{
  await Note.findByIdAndDelete(req.params.id);
