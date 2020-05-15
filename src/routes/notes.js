@@ -6,7 +6,7 @@ const newNote = 0;
 const Note = require('../models/Note');
 //aqui para poder ingresar a la carpeta se tiene que subir un nivel('../)
 
-/* const { isAuthenticated } = require('../helpers/auth'); */
+const { isAuthenticated } = require('../helpers/auth');
 
 
 
@@ -15,14 +15,14 @@ const Note = require('../models/Note');
 
 
 
-router.get('/notes/add', /* isAuthenticated, */ (req,res) =>{
+router.get('/notes/add',  isAuthenticated,  (req,res) =>{
     res.render('notes/new-note');
      //tenemos que crear un formulario(vista) en notes
 });
 
 
 
-router.post('/blabla/sergio1', /* isAuthenticated, */ async (req, res) => {
+router.post('/blabla/sergio1', isAuthenticated, async (req, res) => {
    const {title, description}= req.body;
     //quiero destructurar el title y el descrption, puden estar almacenados dentro una variable o constante, en este caso sera constante 
     //PROCESO DE VALIDACION
@@ -53,7 +53,7 @@ router.post('/blabla/sergio1', /* isAuthenticated, */ async (req, res) => {
 
 
  //la logica:cuando visites es ta ruta, que consulte a la base de datos y le pasamos la vista con las notas de la base de datos 
-    router.get('/notes', /* isAuthenticated, */ async (req,res) =>{ 
+    router.get('/notes', isAuthenticated, async (req,res) =>{ 
     const notes = await Note.find().lean();/* {user: req.user.id}  .sort({date: 'desc'}) */
     //jalamos los datos de la DB, dentro de find no le especificamos nada xq queremos que nos dvuelva todo, como no sabemos(igual que el guardado cuento pude tardar, entonces lo declaramos como asyncrono)
     //y lo almacenamos en una constante
@@ -62,20 +62,19 @@ router.post('/blabla/sergio1', /* isAuthenticated, */ async (req, res) => {
    
 });
 
-router.get('/notes/edit/:id',/*  isAuthenticated, */ async (req,res) =>{
+router.get('/notes/edit/:id', isAuthenticated, async (req,res) =>{
     const note = await Note.findById(req.params.id);
     res.render('notes/edit-note', {note});
 }); 
 
-router.put('/notes/edit-note/:id', /* isAuthenticated, */ async (req, res) => {
+router.put('/notes/edit-note/:id', isAuthenticated, async (req, res) => {
  const {title, description} = req.body;
  await Note.findByIdAndUpdate(req.params.id, {title, description});
  req.flash('success_msg', 'Note updated successfully');
  res.redirect('/notes');
 }); 
 
-router.delete('/notes/delete/:id', /* 
- */ async (req, res) =>{
+router.delete('/notes/delete/:id', isAuthenticated, async (req, res) =>{
  await Note.findByIdAndDelete(req.params.id);
  req.flash('error_msg', 'Note deleted successfully');
  res.redirect('/notes');

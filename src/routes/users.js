@@ -53,12 +53,12 @@ router.post('/users/signup', async (req, res) => {
        newUser.password = await newUser.encryptPassword(password);
         await newUser.save();
         req.flash('success_msg', 'creacion de cuenta completa');
-        res.redirect('/users/login');
+        res.redirect('/login');
     }
 }); 
 
 
-router.get('/users/logout', (req, res) => {
+router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/login');
 }); 
