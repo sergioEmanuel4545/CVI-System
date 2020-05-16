@@ -1,0 +1,62 @@
+<div class="col-sm-7 mx-auto">
+<div class="card">
+    <div class="card_header">
+        <h3>Registro de Venta</h3>
+    </div>
+    <div class="card_body">
+        <form action ="/ventas/add" method="POST">
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Producto vendido</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="productoVendido" class="form-control" placeholder="" id="inputname1" value="{{productoVendido}}"
+                    autofocus>                   
+                </div>
+            </div>           
+            <div class="form-group row">
+                <label for="inputState" class="col-sm-3 col-form-label text-sm-center">Clientes</label>
+                <div class="col-sm mx-auto">
+                <select id="inputState" class="form-control" name="seleccionCliente" >
+                    <option >...</option>
+                    {{#each listaClientes}}
+                    <option >{{nombre}}</option>
+                    {{/each}}
+                </select>
+                </div>
+            </div>
+             <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cantidad vendida</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="cantidadVendida" class="form-control" placeholder="" id="inputname1" value="{{cantidadVendida}}"
+                    autofocus>                   
+                </div>
+            </div>
+             <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Precio</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="precio" class="form-control" placeholder="" id="inputname1" value="{{precio}}"
+                    autofocus>                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Fecha de venta</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="fechaDeVenta" class="form-control" placeholder="" id="inputname1" value="{{fechaDeVenta}}"
+                    autofocus>                   
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea name="descripcionVenta" class="form-control"
+                placeholder="Informacion adicional" >{{descripcionVenta}}</textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div> 
+
+
+

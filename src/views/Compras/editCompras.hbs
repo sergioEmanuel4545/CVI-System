@@ -1,0 +1,57 @@
+<div class="col-sm-7 mx-auto">
+<div class="card">
+    <div class="card_header">
+        <h3>Informacion Adicional Compras</h3>
+    </div>
+    <div class="card_body">
+        <form action ="/compras/editCompras/{{compra._id}}?_method=PUT" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Producto comprado</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="productoComprado" class="form-control" placeholder="{{compra.productoComprado}}" id="inputname1"
+                    readonly>                   
+                </div>
+            </div>           
+            <div class="form-group row">
+                <label for="inputname2" class="col-sm-3 col-form-label text-sm-center">Proveedor</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="seleccionProveedor" class="form-control" placeholder="{{compra.seleccionProveedor}}" id="inputname2"
+                    readonly>                   
+                </div>
+            </div>
+             <div class="form-group row">              
+                <label for="inputname3" class="col-sm-3 col-form-label text-sm-center">Cantidad comprada</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="cantidadComprada" class="form-control" placeholder="{{compra.cantidadComprada}}" id="inputname3" 
+                    readonly>                   
+                </div>
+            </div>
+             <div class="form-group row">              
+                <label for="inputname4" class="col-sm-3 col-form-label text-sm-center">Costo</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="costo" class="form-control" placeholder="{{compra.costo}}" id="inputname4"
+                    readonly>                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname5" class="col-sm-3 col-form-label text-sm-center">Fecha de compra</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="fechaDeCompra" class="form-control" placeholder="{{compra.fechaDeCompra}}" id="inputname5"
+                    readonly>                   
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea name="descripcionCompra" class="form-control">
+                    {{compra.descripcionCompra}}
+                    </textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Guardar Informacion Adicional
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div> 

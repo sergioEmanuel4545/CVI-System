@@ -1,15 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <div class="container">
-      <div class="container">
         <a class="navbar-brand" href="/">CVI System</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-        {{#if nameU}}
-      <li class="nav-item dropdown">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+       <ul class="navbar-nav">
+          {{#if nameU}}
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Compras
           </a>
@@ -23,8 +21,17 @@
             Ventas
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/notes">Clientes</a>
-            <a class="dropdown-item" href="/notes/add">Registro de Ventas</a>
+            <a class="dropdown-item" href="/clientes">Clientes</a>
+            <a class="dropdown-item" href="/ventas">Registro de Ventas</a>
+          </div>
+        </li>
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Inventarios
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/proveedores">Materia Prima MoPo</a>
+            <a class="dropdown-item" href="/compras">Productos Terminados</a>
           </div>
         </li>
         {{/if}}
@@ -39,13 +46,16 @@
             <a class="dropdown-item" href="/notes">All Notes</a>
             <a class="dropdown-item" href="/notes/add">Cambiar Contraseña</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/users/logout">Logout</a>
+            <a class="dropdown-item" href="/logout">Logout</a>
           </div>
         </li>
+        <li class="">
+        <a class="nav-link" >Usuario: {{nameU.name}}</a>
+      </li>
 
       {{else}}
         <li class="nav-item">
-                <a class="nav-link" href="/users/signin">SignIn</a>
+                <a class="nav-link" href="/login">Login</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/users/signup">SignUp</a>
@@ -57,9 +67,8 @@
       
       
       
-    </ul>
-  </div>
-      </div>
+         </ul>
+    
     </div>
   </div>
 </nav>

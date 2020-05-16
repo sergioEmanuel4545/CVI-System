@@ -50,13 +50,13 @@ app.use((req, res, next) => {
     next();
 })
 
+
 // routes
 app.use(require('./routes/index'));
 app.use(require('./routes/notes'));
 app.use(require('./routes/users'));
 app.use(require('./routes/compras'));
-
-//app.use(require('./routes/ventas'));
+app.use(require('./routes/ventas'));
 
 
 // static files

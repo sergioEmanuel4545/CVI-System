@@ -1,0 +1,64 @@
+<div class="col-sm-7 mx-auto">
+<div class="card">
+    <div class="card_header">
+        <h3>Actualización de Cliente</h3>
+    </div>
+    <div class="card_body">
+        <form action ="/clientes/editCliente/{{cliente._id}}?_method=PUT" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+            <div class="form-group row">              
+                <label  class="col-sm-3 col-form-label text-sm-center">Nombre completo</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="nombre" class="form-control" placeholder="{{cliente.nombre}}" 
+                    readonly>                   
+                </div>
+            </div>
+             <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cedula de Identidad</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="ci" class="form-control" placeholder="{{cliente.ci}}" 
+                    readonly>                   
+                </div>
+            </div>
+             <div class="form-group row">              
+                <label  class="col-sm-3 col-form-label text-sm-center">Empresa U Organizacion</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="empresaOrganizacion" class="form-control" placeholder="{{cliente.empresaOrganizacion}}"
+                    readonly>                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label  class="col-sm-3 col-form-label text-sm-center">Nit</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="nit" class="form-control" placeholder="{{cliente.nit}}" 
+                    readonly>                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label  class="col-sm-3 col-form-label text-sm-center">Telefonos</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="telefono" class="form-control" value="{{cliente.telefono}}" 
+                    autofocus>                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label  class="col-sm-3 col-form-label text-sm-center">Direccion</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="direccion" class="form-control" value="{{cliente.direccion}}" 
+                    autofocus>                   
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea name="descripcionCliente" class="form-control">
+                    {{cliente.descripcionCliente}}
+                </textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Guardar Actualización
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div> 

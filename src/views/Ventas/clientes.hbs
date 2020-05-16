@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="card-header">
+        <h3>Clientes</h3>
+        
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Lista</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link lead" href="/clientes/add"><i class="fas fa-plus-circle"></i></a>
+      </li>
+    </ul>
+  </div>
+    <div class="card_body">
+        <div class="table-responsive">
+        <table class="table table-striped table-sm table-hover">
+          <thead>
+            <tr>
+              <th>Nº</th>
+              <th>Nombre</th>
+              <th>C.I.</th>
+              <th>Empresa/Organizacion</th>
+              <th>Nit</th>
+              <th>Telefono</th>
+              <th>Direccion</th>
+              <th>Descripcion</th>
+            </tr>
+          </thead>
+          <tbody>
+        {{#each listaClientes}}
+            <tr>
+
+              <td></td>
+              <td>{{nombre}}</td>
+              <td>{{ci}}</td>
+              <td>{{empresaOrganizacion}}</td>
+              <td>{{nit}}</td>
+              <td>{{telefono}}</td>
+              <td>{{direccion}}</td>
+              <td>{{descripcionCliente}}</td>
+              <td><a href="/clientes/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
+            </tr>
+                
+                    
+        {{else}}
+           <tr>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+        {{/each}}  
+            </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+    </div>
+</div>

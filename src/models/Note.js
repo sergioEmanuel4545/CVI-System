@@ -9,8 +9,8 @@ const NoteSchema = new Schema({
     title: {type: String, required: true},
     //TRUE no puede estar vacio
     description: { type: String, required: true},
-    date: {type: Date, default: Date.now}
-    /* user: {type: String} */
+    date: {type: Date, default: Date.now},
+    user: {type: String} //campo especial que guarda el ID del usuario que lo creo
 })
 
 //hay que decir a mongo db como crear el modelo
