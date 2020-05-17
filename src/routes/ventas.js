@@ -56,6 +56,10 @@ router.post('/clientes/add', isAuthenticated, async (req, res) => {
 
  router.get('/clientes', isAuthenticated, async (req,res) =>{ 
     const listaClientes = await (await Cliente.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+    for (i=0; i<listaClientes.length;i++){
+        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+        listaClientes[i].contador = i+1;
+    }
     res.render('Ventas/clientes', { listaClientes });
 });
 
@@ -127,6 +131,10 @@ router.post('/ventas/add', isAuthenticated, async (req, res) => {
  });
  router.get('/ventas', isAuthenticated, async (req,res) =>{ 
     const listaVentas = await (await Venta.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+    for (i=0; i<listaVentas.length;i++){
+        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+        listaVentas[i].contador = i+1;
+    }
     res.render('Ventas/ventas', { listaVentas });
 });
 

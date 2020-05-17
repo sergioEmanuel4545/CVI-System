@@ -7,6 +7,7 @@ const Compra = require('../models/Compra');
 const { isAuthenticated } = require('../helpers/auth');
 
 
+
 router.get('/proveedores/add', isAuthenticated, (req,res) =>{
     res.render('Compras/addProveedores');
 });
@@ -50,9 +51,14 @@ router.post('/proveedores/add', isAuthenticated, async (req, res) => {
 
 
  router.get('/proveedores', isAuthenticated, async (req,res) =>{ 
-    const listaProveedores = await (await Proveedor.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
-    res.render('Compras/proveedores', { listaProveedores });
+    let listaProveedores = await Proveedor.find().lean();/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+    for (i=0; i<listaProveedores.length;i++){
+        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"}; */
+        listaProveedores[i].contador = i+1;
+    }
+    res.render('Compras/proveedores', { listaProveedores }); 
 });
+
 
 
 router.get('/proveedores/edit/:id', isAuthenticated, async (req,res) =>{
@@ -122,6 +128,10 @@ router.post('/compras/add', isAuthenticated, async (req, res) => {
  });
  router.get('/compras', isAuthenticated, async (req,res) =>{ 
     const listaCompras = await (await Compra.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+    for (i=0; i<listaCompras.length;i++){
+        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+        listaCompras[i].contador = i+1;
+    }
     res.render('Compras/compras', { listaCompras });
 });
 

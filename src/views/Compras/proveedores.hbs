@@ -7,7 +7,7 @@
         <a class="nav-link active" href="#">Lista</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link lead" href="/proveedores/add"><i class="fas fa-plus-circle"></i></a>
+        <a onclick="miFuncion()" class="nav-link lead" href="/proveedores/add"><i class="fas fa-plus-circle"></i></a>
       </li>
     </ul>
   </div>
@@ -26,9 +26,9 @@
           </thead>
           <tbody>
         {{#each listaProveedores}}
+            <ol>
             <tr>
-
-              <td></td>
+              <td>{{contador}}</td>
               <td>{{nombre}}</td>
               <td>{{nit}}</td>
               <td>{{contacto}}</td>
@@ -36,7 +36,7 @@
               <td>{{descripcion}}</td>
               <td><a href="/proveedores/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
             </tr>
-                
+           </ol>     
                     
         {{else}}
            <tr>
