@@ -57,6 +57,7 @@ app.use(require('./routes/notes'));
 app.use(require('./routes/users'));
 app.use(require('./routes/compras'));
 app.use(require('./routes/ventas'));
+app.use(require('./routes/inventarios'));
 
 
 // static files

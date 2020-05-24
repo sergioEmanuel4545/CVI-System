@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            
+            <div class="card">
+            <div class="card-header">
+                <h3>Historial</h3>
+                
+            <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Lista</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link lead" href="/proveedores/add"><i class="fas fa-plus-circle"></i></a>
+            </li>
+            </ul>
+            </div>
+                <div class="card_body">
+                    <div class="table-responsive">
+                    <table class="table table-striped table-sm table-hover">
+                    <thead>
+                        <tr>
+                        <th>Nº</th>
+                        <th>Nombre</th>
+                        <th>Nit</th>
+                        <th>Contacto</th>
+                        <th>Direccion</th>
+                        <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{#each listaProveedores}}
+                        <ol>
+                        <tr>
+                        <td>{{contador}}</td>
+                        <td>{{nombre}}</td>
+                        <td>{{nit}}</td>
+                        <td>{{contacto}}</td>
+                        <td>{{direccion}}</td>
+                        <td>{{descripcion}}</td>
+                        <td><a href="/proveedores/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
+                        </tr>
+                    </ol>     
+                                
+                    {{else}}
+                    <tr>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        </tr>
+                    {{/each}}  
+                        </tbody>
+                    </table>
+                </div>
+                </main>
+            </div>
+            </div>
+                </div>
+            </div>
+        </main>
+
+
+
+
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li>
+             <img src="../img/logo2.png" alt="Logotipo" class="logo2" width="80" height="80">
+          </li>
+          <h5>Panel de control</h5>
+            <li >
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" ><strong>Elementos</strong></a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li class="nav-item">
+                        <a  href="/inventarios/categorias">Categorias</a>
+                    </li>
+                    <li>
+                        <a href="/inventarios/mopos">MoPo</a>
+                    </li>
+                    <li>
+                        <a href="/inventarios/productos">Productos</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/inventarios/existencias"><strong>Existencias</strong></a>
+            </li>
+            <li>
+                <a href="/inventarios/historial"><strong>Historial</strong></a>
+            </li>
+        </ul>
+
+      </div>
+    </nav>
+
+
+
+
+   
+  </div>
+</div>
