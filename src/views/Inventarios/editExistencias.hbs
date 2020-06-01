@@ -2,38 +2,58 @@
 <div class="col-sm-7 mx-auto">
 <div class="card">
     <div class="card_header">
-        <h3>Actualización de Producto</h3>        
+        <h3>Actualizacion descripcion de ingreso</h3>        
     </div>
     <div class="card_body">
-        <form action ="/productos/editProducto/{{producto._id}}?_method=PUT" method="POST">
+        <form action ="/existencias/editExistencia/{{existencia._id}}?_method=PUT" method="POST">
         <input type="hidden" name="_method" value="PUT">
-            <div class="form-group row">              
-                <label  class="col-sm-3 col-form-label text-sm-center">Producto</label>
-                <div class="col-sm mx-auto">
-                <input type = "text" name="nombreProducto" class="form-control" value="{{producto.nombreProducto}}" 
-                    >                   
-                </div>
-            </div>
             <div class="form-group row">
-                <label for="inputState" class="col-sm-3 col-form-label text-sm-center">Categoria</label>
+                <label for="inputState" class="col-sm-3 col-form-label text-sm-center">MoPo</label>
             <div class="col-sm mx-auto">
-                <select id="inputState" class="form-control" name="seleccionCategoria" placeholder="{{producto.seleccionCategoria}}">
-                    <option >{{producto.seleccionCategoria}}</option>
-                    {{#each listaCategorias}}
-                    <option >{{nombreCategoria}}</option>
-                    {{/each}}
+                <select id="inputState" class="form-control" name="ingresoMoPo" >
+                    <option >{{existencia.ingresoMoPo}}</option>
                 </select>
             </div>
-        </div>               
+
+            <label for="inputState" class="col-sm-3 col-form-label text-sm-center">Producto</label>
+            <div class="col-sm mx-auto">
+                <select id="inputState" class="form-control" name="ingresoProducto" >
+                    <option >{{existencia.ingresoProducto}}</option>
+                </select>
             </div>
+
+
+        </div>
+        <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cantidad</label>
+                <div class="col-sm mx-auto">
+                <input type = "number" name="ingresoCantidad" class="form-control" placeholder="{{existencia.ingresoCantidad}}" id="inputname1" value=""
+                    readonly>    
+                </div>
+                <label for="inputname1" class="col col-form-label text-sm-left">[Unidades]</label>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Lote_Id</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="CodeLoteId" class="form-control" placeholder="" id="inputname1" value="{{existencia.CodeLoteId}}"
+                    readonly>                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Fecha de Vencimiento</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="fechaVencimientoIngreso" class="form-control" placeholder="{{existencia.fechaVencimientoIngreso}}" id="inputname1" 
+                    readonly>                   
+                </div>
+            </div>
+        
             <div class="form-group">
-                <textarea name="descripcionProducto" class="form-control">
-                    {{producto.descripcionProducto}}
-                </textarea>
+                <textarea name="descripcionIngreso" class="form-control"
+                placeholder="Informacion adicional" >{{existencia.descripcionIngreso}}</textarea>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">
-                    Guardar Actualización
+                    Guardar Actualizacion
                 </button>
             </div>
         </form>

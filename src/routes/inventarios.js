@@ -265,6 +265,17 @@ router.post('/existencias/add', isAuthenticated, async (req, res) => {
         res.redirect('/inventarios/existencias'); 
      }  
  });
+ router.get('/existencias/edit/:id', isAuthenticated, async (req,res) =>{
+    const existencia = await Existencia.findById(req.params.id).lean();
+  
+    res.render('Inventarios/editExistencias', { existencia});
+});
+router.put('/existencias/editExistencia/:id', isAuthenticated, async (req, res) => {
+    const {descripcionIngreso} = req.body;
+    await Existencia.findByIdAndUpdate(req.params.id, {descripcionIngreso});
+    req.flash('success_msg', 'Descripcion de ingreso actualizado correctamente');
+    res.redirect('/inventarios/existencias');
+   }); 
 
 
 
