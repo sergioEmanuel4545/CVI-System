@@ -1,0 +1,51 @@
+{{>sidebar}}
+<div class="col-sm-8 mx-auto">
+    <div class="card">
+    <div class="card_header">
+        <h3>Retiro de elementos</h3>        
+    </div>
+    <div class="card_body">
+        <form action ="/existencias/retiroExistencia/{{existencia._id}}?_method=PUT" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+            <div class="form-group row">              
+                <label for="inputState" class="col-sm-2 col-form-label text-sm-center">Lote_ID</label>
+                <div class="col-sm-3 mx-auto">
+                <input type = "text" name="CodeLoteId" class="form-control" placeholder="" id="inputname1" value="{{existencia.CodeLoteId}}"
+                    readonly>                   
+                </div>
+
+                <label for="inputState" class="col-sm-2 col-form-label text-sm-center">Elemento</label>
+                <div class="col-sm-5 mx-auto">
+                <input type = "text"  class="form-control" placeholder="" id="inputname1" value="{{existencia.elemento}}"
+                    readonly>                   
+                </div>
+
+
+            </div>
+        <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cantidad disponible</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="ingresoCantidad" class="form-control" placeholder="" id="inputname1" value="{{existencia.ingresoCantidad}}"
+                    readonly>                   
+                </div>
+                <label for="inputname1" class="col col-form-label text-sm-left">[Unidades]</label>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cantidad a retirar</label>
+                <div class="col-sm mx-auto">
+                <input type = "number" name="retiroCantidad" class="form-control" placeholder="" id="inputname1"
+                    autofocus required>                   
+                </div>
+                <label for="inputname1" class="col col-form-label text-sm-left">[Unidades]</label>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Guardar Retiro
+                </button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div> 
+
+

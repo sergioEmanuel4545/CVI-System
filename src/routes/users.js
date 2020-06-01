@@ -28,29 +28,34 @@ router.get('/users/signup', (req, res) => {
 router.post('/users/signup', async (req, res) => {
     const { name,email,password,confirm_password } = req.body;
     const errors = [];
+    const emailUser = await User.findOne({email: email});
     if (name.length <= 0){
-        errors.push({text: 'you must insert a name'});
+        errors.push({text: 'Debe insertar un nombre de usuario'});
     }
     if (password.length < 4){
-        errors.push({text: 'password has to have at least 4 characters'});
+        errors.push({text: 'La contraseña tiene que ser la menos de 4 caracteres'});
     }
     if (password != confirm_password){
-        errors.push({text: 'password dont match'});
+        errors.push({text: 'Constraseñas no coinciden'});
+    }
+    if(emailUser){
+        errors.push({text: 'El correo electronico ya se enceuntra en uso'})
     }
     if (errors.length > 0){
-        res.render('users/signup', {errors, name, email, password, confirm_password});
+        res.render('users/signup', {
+            errors,
+            name,
+            email,
+            password,
+            confirm_password});
     } 
     else{
-        const emailUser = await User.findOne({email: email});
-        if (emailUser) {
-            req.flash('error_msg', 'The Email is already in use');
-            res.redirect('/users/signup');
-        }
         const newUser = new User  ({name, email, password});
        newUser.password = await newUser.encryptPassword(password);
         await newUser.save();
         req.flash('success_msg', 'creacion de cuenta completa');
         res.redirect('/login');
+        
     }
 }); 
 

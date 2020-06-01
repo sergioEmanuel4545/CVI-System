@@ -15,6 +15,8 @@ router.post('/proveedores/add', isAuthenticated, async (req, res) => {
     const {nombre, nit, contacto, direccion, descripcion}= req.body;
     //PROCESO DE VALIDACION
      const errors = [];
+     const nombreDup = await Proveedor.findOne({nombre: nombre});
+     const nitDup = await Proveedor.findOne({nit:nit});
      if(!nombre){
         errors.push({text: 'Porfavor Introduzca nombre proveedor'});
      }
@@ -30,14 +32,20 @@ router.post('/proveedores/add', isAuthenticated, async (req, res) => {
     if(!descripcion){
         errors.push({text: 'Porfavor Introduzca una descripcion'});
     }
+    if(nombreDup){
+        errors.push({text: 'El Proveedor ya existe'})
+    }
+    if(nitDup){
+        errors.push({text: 'El Nit ya existe'})
+    }
      if(errors.length > 0){
-         res.render('Compras/addProveedores', {
+          res.render('Compras/addProveedores', {
             errors,
             nombre,
             nit,
             contacto,
             direccion,
-            descripcion});
+            descripcion}); 
      }
      else{
          const nuevoProveedor =  new Proveedor({ nombre,nit,contacto,direccion,descripcion});

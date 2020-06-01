@@ -1,17 +1,15 @@
 <div class="container-fluid">
     <div class="row">
+        {{>sidebar}}
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             
             <div class="card">
             <div class="card-header">
-                <h3>Historial</h3>
+                <h3>Existencias Archivadas</h3>
                 
             <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Lista</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link lead" href="/proveedores/add"><i class="fas fa-plus-circle"></i></a>
+                <a class="nav-link active">Lista</a>
             </li>
             </ul>
             </div>
@@ -21,24 +19,27 @@
                     <thead>
                         <tr>
                         <th>Nº</th>
-                        <th>Nombre</th>
-                        <th>Nit</th>
-                        <th>Contacto</th>
-                        <th>Direccion</th>
+                        <th>Lote ID</th>
+                        <th>MoPo</th>
+                        <th>Producto Terminado</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de ingreso</th>
+                        <th>Fecha de vencimiento</th>
                         <th>Descripcion</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {{#each listaProveedores}}
+                    {{#each listaExistenciasArchivadas}}
                         <ol>
                         <tr>
                         <td>{{contador}}</td>
-                        <td>{{nombre}}</td>
-                        <td>{{nit}}</td>
-                        <td>{{contacto}}</td>
-                        <td>{{direccion}}</td>
-                        <td>{{descripcion}}</td>
-                        <td><a href="/proveedores/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
+                        <td>{{CodeLoteId}}</td>
+                        <td>{{ingresoMoPo}}</td>
+                        <td>{{ingresoProducto}}</td>
+                        <td> {{ingresoCantidad}} </td>
+                        <td>{{date}}</td>
+                        <td>{{fechaVencimientoIngreso}}</td>
+                        <td>{{descripcionIngreso}}</td>                        
                         </tr>
                     </ol>     
                                 
@@ -62,43 +63,86 @@
         </main>
 
 
+{{!---------------------------- MODALS --------------------------------}}
+{{!---------------------------- MODALS --------------------------------}}
+{{!---------------------------- MODALS --------------------------------}}
 
-
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li>
-             <img src="../img/logo2.png" alt="Logotipo" class="logo2" width="80" height="80">
-          </li>
-          <h5>Panel de control</h5>
-            <li >
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" ><strong>Elementos</strong></a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li class="nav-item">
-                        <a  href="/inventarios/categorias">Categorias</a>
-                    </li>
-                    <li>
-                        <a href="/inventarios/mopos">MoPo</a>
-                    </li>
-                    <li>
-                        <a href="/inventarios/productos">Productos</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="/inventarios/existencias"><strong>Existencias</strong></a>
-            </li>
-            <li>
-                <a href="/inventarios/historial"><strong>Historial</strong></a>
-            </li>
-        </ul>
-
+   {{!--  <div class="modal fade" id="modalINGRESOINV" tabindex="-1" role="dialog" aria-labelledby="modalINGRESOINVLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalINGRESOINVLabel">Nuevo Ingreso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </nav>
+      <div class="modal-body">
+        <form action ="/existencias/add" method="POST"> 
+        
+        <div class="form-group row">
+                <label for="inputState" class="col-sm-3 col-form-label text-sm-center">MoPo</label>
+            <div class="col-sm mx-auto">
+                <select id="inputState" class="form-control" name="ingresoMoPo" >
+                    <option >...</option>
+                    {{#each listaMoPos}}
+                    <option >{{nombreMoPo}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <label for="inputState" class="col-sm-3 col-form-label text-sm-center">Producto</label>
+            <div class="col-sm mx-auto">
+                <select id="inputState" class="form-control" name="ingresoProducto" >
+                    <option >...</option>
+                    {{#each listaProductos}}
+                    <option >{{nombreProducto}}</option>
+                    {{/each}}
+                </select>
+            </div>
 
 
-
-
-   
+        </div>
+        <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cantidad</label>
+                <div class="col-sm mx-auto">
+                <input type = "number" name="ingresoCantidad" class="form-control" placeholder="" id="inputname1" value="{{ingresoCantidad}}"
+                    required>                   
+                </div>
+                <label for="inputname1" class="col col-form-label text-sm-left">[Unidades]</label>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Lote_Id</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="CodeLoteId" class="form-control" placeholder="" id="inputname1" value="{{CLID}}"
+                    readonly>                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Fecha de Vencimiento</label>
+                <div class="col-sm mx-auto">
+                <input type = "date" name="fechaVencimientoIngreso" class="form-control" placeholder="" id="inputname1" value="{{fechaVencimientoIngreso}}"
+                    required>                   
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <textarea name="descripcionIngreso" class="form-control"
+                placeholder="Informacion adicional" >{{descripcionIngreso}}</textarea>
+            </div>
+        <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+             <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Registrar Ingreso
+                </button>
+             </div>
+        </div>
+        </form>
+      </div>      
+    </div>
   </div>
 </div>
+</div>
+</div> --}}
+
+

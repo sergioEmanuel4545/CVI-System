@@ -14,6 +14,8 @@ router.post('/clientes/add', isAuthenticated, async (req, res) => {
     const {nombre,ci,empresaOrganizacion, nit, telefono, direccion, descripcionCliente}= req.body;
     //PROCESO DE VALIDACION
      const errors = [];
+     const nombreDup = await Cliente.findOne({nombre: nombre});
+     const ciDup = await Cliente.findOne({ci:ci});
      if(!nombre){
         errors.push({text: 'Porfavor Introduzca nombre cliente'});
      }
@@ -31,6 +33,12 @@ router.post('/clientes/add', isAuthenticated, async (req, res) => {
     }
     if(!direccion){
         errors.push({text: 'Porfavor Introduzca la direccion'});
+    }
+    if(nombreDup){
+        errors.push({text: 'Cliente ya existe'})
+    }
+    if(ciDup){
+        errors.push({text: 'El C.I. ya existe'})
     }
      if(errors.length > 0){
          res.render('Ventas/addClientes', {
