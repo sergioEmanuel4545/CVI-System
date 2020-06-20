@@ -1,15 +1,8 @@
 <div class="card">
     <div class="card-header">
-        <h3>Registro de Ventas</h3>
+        <h3>Seguimiento de Deudas</h3>
         
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">Lista</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link lead" href="/ventas/add"><i class="fas fa-plus-circle"></i></a>
-      </li>
-    </ul>
+    
   </div>
     <div class="card_body">
         <div class="table-responsive">
@@ -17,33 +10,32 @@
           <thead>
             <tr>
               <th>Nº</th>
-              <th>Producto Vendido</th>
+              <th></th>
               <th>Cliente</th>
+              <th>Producto Vendido</th>              
               <th>Cantidad [u]</th>
               <th>Precio [Bs]</th>
-              <th>Fecha de Venta</th>
-              <th>Al contado</th>
               <th>cantidad ya cobrada [Bs]</th>
               <th>Saldo [Bs]</th>
               <th>Fecha del siguiente cobro</th>
+              <th>Fecha de Venta</th>
               <th>Descripcion</th>
             </tr>
           </thead>
           <tbody>
-        {{#each listaVentas}}
+        {{#each listaDeudores}}
             <tr>
               <td>{{contador}}</td>
-              <td>{{productoVendido}}</td>
+              <td><a href="/ventas/cobrodeudas/{{_id}}"><button class="btn btn-info">Cobrar</button></a></td>
               <td>{{seleccionCliente}}</td>
+              <td>{{productoVendido}}</td>
               <td>{{cantidadVendida}}</td>
               <td>{{precio}}</td>
-              <td>{{fechaDeVenta}}</td>
-              <td>{{alContado}}</td>
-              <td>{{montoPagado}}</td>
-              <td>{{saldo}}</td>
+              <td><span class="badge badge-pill badge-success">{{montoPagado}}</span></td>
+              <td><span class="badge badge-pill badge-warning">{{saldo}}</span></td>
               <td>{{fechaDelSigCobro}}</td>
+              <td>{{fechaDeVenta}}</td> 
               <td>{{descripcionVenta}}</td>
-              <td><a href="/ventas/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
             </tr>                   
         {{else}}
            <tr>

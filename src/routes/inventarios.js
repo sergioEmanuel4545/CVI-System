@@ -251,7 +251,7 @@ router.post('/existencias/add', isAuthenticated, async (req, res) => {
             CodeLoteId,
             CLID,
             listaExistencias,
-            cantidadDeIngreso,
+            cantidadDeInicio,
             fechaVencimientoIngreso,
             listaMoPos,listaProductos,
             descripcionIngreso});
@@ -311,6 +311,7 @@ router.put('/existencias/retiroExistencia/:id', isAuthenticated, async (req, res
          });
     }else{
         const resta = existencia.ingresoCantidad - retiroCantidad;
+        console.log()
         await Existencia.findByIdAndUpdate(req.params.id, {ingresoCantidad: resta});
         req.flash('success_msg', 'Retiro Registrado correctamente');
         if(resta == 0){

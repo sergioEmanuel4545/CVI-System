@@ -24,29 +24,46 @@
                 </div>
             </div>
              <div class="form-group row">              
-                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cantidad vendida</label>
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cantidad vendida [u]</label>
                 <div class="col-sm mx-auto">
-                <input type = "text" name="cantidadVendida" class="form-control" placeholder="" id="inputname1" value="{{cantidadVendida}}"
+                <input type = "number" name="cantidadVendida" class="form-control" placeholder="" id="inputname1" value="{{cantidadVendida}}"
                     autofocus>                   
                 </div>
             </div>
              <div class="form-group row">              
-                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Precio</label>
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Precio [Bs]</label>
                 <div class="col-sm mx-auto">
-                <input type = "text" name="precio" class="form-control" placeholder="" id="inputname1" value="{{precio}}"
-                    autofocus>                   
+                <input type = "number" name="precio" class="form-control" placeholder="" id="inputname1" value="{{precio}}"
+                    autofocus>                    
                 </div>
             </div>
             <div class="form-group row">              
                 <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Fecha de venta</label>
                 <div class="col-sm mx-auto">
-                <input type = "date" name="fechaDeVenta" class="form-control" placeholder="" id="inputname1" value="{{fechaDeVenta}}"
+                <input type = "datetime-local" name="fechaDeVenta" class="form-control" placeholder="" id="inputname1" value="{{fechaDeVenta}}"
                     autofocus>                   
                 </div>
             </div>
+             <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">¿Al Contado?</label>
+                <div class="col-sm mx-auto">
+                <input type = "checkbox" name="alContado" class="form-control"  id="chbox1" onclick="enables(this);" value="">                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Monto Pagado [Bs]</label>
+                <div class="col-sm mx-auto">
+                <input type = "number" name="montoPagado" class="form-control" placeholder="" id="montoPagadoText" value="{{montoPagado}}" style="display:">                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Fecha del siguiente cobro</label>
+                <div class="col-sm mx-auto">
+                <input type = "datetime-local" name="fechaDelSigCobro" class="form-control" placeholder="" id="fechaDelSigCobroText" value="{{fechaDelSigCobro}}" style="display:">                   
+                </div>
+            </div>
             <div class="form-group">
-                <textarea name="descripcionVenta" class="form-control"
-                placeholder="Informacion adicional" >{{descripcionVenta}}</textarea>
+                <textarea name="descripcionVenta" class="form-control" placeholder="Informacion adicional" >{{descripcionVenta}}</textarea>
             </div>
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">
@@ -54,6 +71,21 @@
                 </button>
             </div>
         </form>
+        <script type="text/javascript">
+           function enables(obj){
+               if (obj.checked){
+                   document.getElementById("montoPagadoText").style.display ="none";
+                   document.getElementById("montoPagadoText").value="";
+                   document.getElementById("fechaDelSigCobroText").style.display ="none";
+                   document.getElementById("fechaDelSigCobroText").value="";
+                   document.getElementById("chbox1").value = true;
+               }else{
+                   document.getElementById("montoPagadoText").style.display ="";
+                   document.getElementById("fechaDelSigCobroText").style.display ="";
+                   document.getElementById("chbox1").value = false;
+               }
+            }
+        </script>
     </div>
 </div>
 </div> 
