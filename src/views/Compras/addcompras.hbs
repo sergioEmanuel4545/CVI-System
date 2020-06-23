@@ -44,6 +44,24 @@
                     autofocus>                   
                 </div>
             </div>
+             <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">¿Al Contado?</label>
+                <div class="col-sm mx-auto">
+                <input type = "checkbox" name="alContado" class="form-control"  id="chbox2" onclick="enables(this);" value="">                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Monto Pagado [Bs]</label>
+                <div class="col-sm mx-auto">
+                <input type = "number" name="montoPagadoCompra" class="form-control" placeholder="" id="montoPagadoCompraText" value="{{montoPagadoCompra}}" style="display:">                   
+                </div>
+            </div>
+            <div class="form-group row">              
+                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Fecha del siguiente Pago</label>
+                <div class="col-sm mx-auto">
+                <input type = "datetime-local" name="fechaDelSigPago" class="form-control" placeholder="" id="fechaDelSigPagoText" value="{{fechaDelSigPago}}" style="display:">                   
+                </div> 
+            </div>              
             <div class="form-group">
                 <textarea name="descripcionCompra" class="form-control" placeholder="Informacion adicional: Productos que vende,telefonos,etc">{{descripcionCompra}}</textarea>
             </div>
@@ -53,6 +71,21 @@
                 </button>
             </div>
         </form>
+        <script type="text/javascript">
+           function enables(obj){
+               if (obj.checked){
+                   document.getElementById("montoPagadoCompraText").style.display ="none";
+                   document.getElementById("montoPagadoCompraText").value="";
+                   document.getElementById("fechaDelSigPagoText").style.display ="none";
+                   document.getElementById("fechaDelSigPagoText").value="";
+                   document.getElementById("chbox2").value = true;
+               }else{
+                   document.getElementById("montoPagadoCompraText").style.display ="";
+                   document.getElementById("fechaDelSigPagoText").style.display ="";
+                   document.getElementById("chbox2").value = false;
+               }
+            }
+        </script>
     </div>
 </div>
 </div> 

@@ -100,13 +100,16 @@ router.get('/ventas/add', isAuthenticated, async (req,res) =>{
     res.render('Ventas/addVentas', { listaClientes });
 });
 router.post('/ventas/add', isAuthenticated, async (req, res) => {
-    const {productoVendido, seleccionCliente, cantidadVendida, precio, fechaDeVenta,alContado,montoPagado,fechaDelSigCobro, descripcionVenta}= req.body;
+    let {productoVendido, seleccionCliente, cantidadVendida, precio, fechaDeVenta,alContado,montoPagado,fechaDelSigCobro, descripcionVenta}= req.body;
     //PROCESO DE VALIDACION
      const errors = [];
      const listaClientes = await Cliente.find().lean();
      var saldo = precio - montoPagado;
-     if(saldo == precio){
+     if(alContado){
          saldo = 0;
+     }
+     if(precio == saldo){
+        montoPagado = 0;
      }
      if(!productoVendido){
         errors.push({text: 'Porfavor Introduzca el producto vendido'});
@@ -126,12 +129,12 @@ router.post('/ventas/add', isAuthenticated, async (req, res) => {
     if(montoPagado < 0){
         errors.push({text: 'No se permiten valores negativos'});
     }
-    if ((alContado) == false){//¿Xq no sirve alContado != true??? probamos y no cumple
-        if(montoPagado < precio){//¿Xq no sirve montoPagado > precio no cumple la condicion ni la logica!
+    if (!alContado){//¿Xq no sirve alContado != true??? probamos y no cumple
+        if(montoPagado > precio){//¿Xq no sirve montoPagado > precio no cumple la condicion ni la logica!
             errors.push({text: 'El monto pagado es mayor o igual que el precio'});
         }
     }    
-    if(!fechaDelSigCobro && alContado == false){
+    if(!fechaDelSigCobro && !alContado){
         errors.push({text: 'Favor ingresar fecha del siguiente cobro'});
     }
      if(errors.length > 0){
@@ -210,7 +213,6 @@ router.put('/ventas/cobrodeuda/:id', isAuthenticated, async (req, res) => {
     const {montoCobrado,fechaDelSigCobro,descripcionVenta} = req.body;
     const venta = await Venta.findById(req.params.id).lean();
    const suma = parseInt(venta.montoPagado,10) + parseInt(montoCobrado,10);
-   console.log({venta});
    const errors = [];
    if(!montoCobrado){
     errors.push({text: 'Porfavor Introduzca el monto cobrado.'});
@@ -227,9 +229,8 @@ router.put('/ventas/cobrodeuda/:id', isAuthenticated, async (req, res) => {
     if(errors.length > 0){
      res.render('Ventas/seguimientoDeudas', {
         errors,
-        listaDeudores
-        });
- }
+        listaDeudores});
+     }
  else{
      if (venta.precio == suma){
     venta.saldo = 0;

@@ -1,0 +1,69 @@
+<div class="col-sm-8 mx-auto">
+<div class="card">
+    <div class="card_header">
+        <h3>Pago Prestamo</h3>
+    </div>
+    <div class="card_body">
+        <form action ="/compras/pagodeuda/{{compra._id}}?_method=PUT" method="POST">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="form-group row">
+                <label for="inputname2" class="col-sm-3 col-form-label text-sm-center">Proveedor</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="seleccionProveedor" class="form-control" placeholder="{{compra.seleccionProveedor}}" id="inputname2"
+                    readonly>                   
+                </div>
+            </div>
+     <div class="input-group mb-2">                       
+                <label for="inputname1" class="col-sm-2 col-form-label text-sm-center">Producto comprado</label>
+            <div class="col-sm-6">
+                <input type = "text" name="productoComprado" class="form-control" placeholder="{{compra.productoComprado}}" id="inputname1"
+                    readonly>                   
+            </div>
+                <label for="inputname3" class="col-sm-2 col-form-label text-sm-center">Cantidad comprada</label>
+            {{!-- <div class="col-sm-2"> --}}
+                    <input type = "text" name="cantidadComprada" class="form-control" placeholder="{{compra.cantidadComprada}}" id="inputname3" 
+                        readonly>                      
+           {{!--  </div> --}}
+           <div class="input-group-append">
+                  <span class="input-group-text">[u]</span>       
+            </div>  
+        </div>   
+             <div class="form-group row">              
+                <label for="inputname4" class="col-sm-3 col-form-label text-sm-center">Costo total [Bs]</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="costo" class="form-control" placeholder="{{compra.costo}}" id="inputname4"
+                    readonly>                   
+                </div>
+                <label for="inputname4" class="col-sm-3 col-form-label text-sm-center">Saldo [Bs]</label>
+                <div class="col-sm mx-auto">
+                <input type = "text" name="saldo" class="form-control" placeholder="{{compra.saldo}}" id="inputname4"
+                    readonly>                   
+                </div>
+            </div>
+             <div class="form-group row">              
+                <label for="inputname4" class="col-sm-3 col-form-label text-sm-center">Monto de Pago</label>
+                <div class="col-sm mx-auto">
+                <input type = "number" name="montoPagado2" class="form-control" placeholder="{{montoPagado2}}" id="inputname4"
+                    autofocus required>                   
+                </div>
+             </div>   
+            <div class="form-group row">              
+                <label for="inputname5" class="col-sm-3 col-form-label text-sm-center">Fecha del siguiente Pago</label>
+                <div class="col-sm mx-auto">
+                <input type = "datetime-local" name="fechaDelSigPago" class="form-control" placeholder="{{fechaDelSigPago}}" id="inputname5">                   
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea name="descripcionVenta" class="form-control">
+                    {{compra.descripcionCompra}}
+                    </textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Realizar Pago
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div> 

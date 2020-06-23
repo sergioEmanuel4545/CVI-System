@@ -8,6 +8,13 @@ const CompraSchema = new Schema({
     seleccionProveedor: {type: String, required: true},
     cantidadComprada: {type: Number, required: true},
     costo: {type: Number, required: true},
+    alContado: { 
+        type: Boolean,
+        default: false},
+        saldo: {type: Number, required: false},
+    montoPagadoCompra: {type: Number, required: false},
+    Saldo: {type: Number, required: false},
+    fechaDelSigPago: {type: Date, required: false},
     fechaDeCompra: { type: Date, required: true},
     descripcionCompra: { type: String, required: false},
     date: {type: Date, default: Date.now}

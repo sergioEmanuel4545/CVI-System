@@ -97,10 +97,17 @@ router.get('/compras/add', isAuthenticated, async (req,res) =>{
     res.render('Compras/addCompras', { listaProveedores });
 });
 router.post('/compras/add', isAuthenticated, async (req, res) => {
-    const {productoComprado, seleccionProveedor, cantidadComprada, costo, fechaDeCompra, descripcionCompra}= req.body;
+    let {productoComprado, seleccionProveedor, cantidadComprada, costo, fechaDeCompra, alContado,montoPagadoCompra,fechaDelSigPago,descripcionCompra}= req.body;
     //PROCESO DE VALIDACION
      const errors = [];
-     const listaProveedores = await (await Proveedor.find().lean());
+     const listaProveedores = await Proveedor.find().lean();
+     var saldo = costo - montoPagadoCompra;
+     if(alContado){
+         saldo = 0;
+     }
+     if(costo == saldo){
+        montoPagadoCompra = 0;
+     }
      if(!productoComprado){
         errors.push({text: 'Porfavor Introduzca el producto comprado'});
      }
@@ -116,18 +123,31 @@ router.post('/compras/add', isAuthenticated, async (req, res) => {
     if(!fechaDeCompra){
         errors.push({text: 'Porfavor Introduzca fecha de compra'});
     }
+    if(montoPagadoCompra < 0){
+        errors.push({text: 'No se permiten valores negativos'});
+    }
+    if (!alContado){//¿Xq no sirve alContado != true??? probamos y no cumple => xq JS tiene otra logaica al momento de comparar booleanos
+        if(montoPagadoCompra > costo){//¿Xq no sirve montoPagado > precio no cumple la condicion ni la logica!
+            errors.push({text: 'El monto pagado es mayor o igual que el costo'});
+        }
+    }    
+    if(!fechaDelSigPago && !alContado){
+        errors.push({text: 'Favor ingresar fecha del siguiente Pago'});
+    }
      if(errors.length > 0){
          res.render('Compras/addCompras', {
             errors,
             productoComprado,
             cantidadComprada,
             costo,
+            montoPagadoCompra,
+            fechaDelSigPago,
             listaProveedores,
             fechaDeCompra,
             descripcionCompra});
      }
      else{
-         const nuevaCompra =  new Compra({ productoComprado,seleccionProveedor,cantidadComprada,costo,fechaDeCompra,descripcionCompra});
+         const nuevaCompra =  new Compra({ productoComprado,seleccionProveedor,cantidadComprada,costo,saldo,alContado,fechaDelSigPago,montoPagadoCompra,fechaDeCompra,descripcionCompra});
         /* nuevoProveedor.user = req.user.id; */
          await nuevaCompra.save(); 
          req.flash('success_msg', 'Compra Registrada correctamente');
@@ -154,6 +174,78 @@ router.put('/compras/editCompras/:id', isAuthenticated, async (req, res) => {
     req.flash('success_msg', 'Informacion Adicional Añadida correctamente');
     res.redirect('/compras');
    }); 
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////   Control de Prestamos a los Proveedores  //////////////////////////////////
+
+
+router.get('/compras/controlPrestamos', isAuthenticated, async (req,res) =>{ 
+    const listaAcreedores = await Compra.find({saldo:{$ne: 0}}).lean();
+    for (i=0; i<listaAcreedores.length;i++){
+        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+        listaAcreedores[i].contador = i+1;
+    }   
+/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+    res.render('Compras/controlPrestamos', { listaAcreedores });
+});
+
+
+
+router.get('/compras/pagodeudas/:id', isAuthenticated, async (req,res) =>{
+    const compra = await Compra.findById(req.params.id).lean();
+    res.render('Compras/pagoPrestamos', { compra });
+});
+
+router.put('/compras/pagodeuda/:id', isAuthenticated, async (req, res) => {
+    const listaAcreedores = await Compra.find({saldo:{$ne: 0}}).lean();
+    for (i=0; i<listaAcreedores.length;i++){
+        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+        listaAcreedores[i].contador = i+1;
+    }   
+    const {montoPagado2,fechaDelSigPago,descripcionCompra} = req.body;
+    const compra = await Compra.findById(req.params.id).lean();
+   const suma = parseInt(compra.montoPagadoCompra,10) + parseInt(montoPagado2,10);
+   const errors = [];
+   if(!montoPagado2){
+    errors.push({text: 'Porfavor Introduzca el monto a Pagar.'});
+    }
+    if(!fechaDelSigPago){
+        errors.push({text: 'Favor ingresar fecha del siguiente Pago. Si el saldo fue pagado completamente, elegir cualquier fecha.'})
+    }
+    if(montoPagado2 < 0){
+        errors.push({text: 'ERROR: No se permiten números negativos.'})
+    }
+    if(montoPagado2 > compra.saldo){
+        errors.push({text: 'ERROR: El monto a pagar es mayor de que saldo.'})
+    }
+    if(errors.length > 0){
+     res.render('Compras/controlPrestamos', {
+        errors,
+        listaAcreedores
+        });
+ }
+ else{
+     if (compra.costo == suma){
+    compra.saldo = 0;
+    compra.fechaDelSigPago = "";
+    }else{
+        compra.saldo = compra.costo - suma;
+        compra.fechaDelSigPago = fechaDelSigPago;
+    }await Compra.findByIdAndUpdate(req.params.id,{
+        montoPagadoCompra: suma,
+        saldo: compra.saldo,
+        fechaDelSigPago: compra.fechaDelSigPago,
+        descripcionVenta: descripcionCompra});
+    req.flash('success_msg', 'Pago realizado correctamente');
+    res.redirect('/compras/controlPrestamos');
+    }
+}); 
+
+
 
 
 
