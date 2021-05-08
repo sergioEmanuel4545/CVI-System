@@ -1,13 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <div class="container">
+   {{!--  {{log  this}} --}}
+
+      {{#if currentURL}}
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sideBarNav" aria-controls="sideBarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+           </button>
+      {{/if}}
         <a class="navbar-brand" href="/">CVI System</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-       <ul class="navbar-nav">
+          <ul class="navbar-nav">
           {{#if nameU}}
-        <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Compras
           </a>
@@ -16,8 +23,8 @@
             <a class="dropdown-item" href="/compras">Registro de Compras</a>
             <a class="dropdown-item" href="/compras/controlPrestamos">Control prestamos</a>
           </div>
-        </li>
-        <li class="nav-item dropdown">
+          </li>
+          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Ventas
           </a>
@@ -33,16 +40,22 @@
           </a>
         </li>
         {{/if}}
-    </ul>
+          </ul>
+           
     <ul class="navbar-nav ml-auto">
+  
       {{#if nameU}}
-        <li class="nav-item dropdown">
+    <form class="form-inline my-2 my-lg-0 mx-lg-auto" action="{{path}}" method="GET"> 
+      <input class="form-control mr-sm-2" type="text" name="search" placeholder="Buscar" aria-label="Search" >
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit" value="Search"><i class="fas fa-search"></i></button>
+    </form>
+           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle lead" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            <strong><i class="fas fa-layer-group"></i></strong> 
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/notes">All Notes</a>
-            <a class="dropdown-item" href="/notes/add">Cambiar Contraseña</a>
+            <a class="dropdown-item" href="/notes">Todas las notas</a>
+            {{!-- <a class="dropdown-item" href="/notes/add">Cambiar Contraseña</a> --}}
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/logout">Logout</a>
           </div>

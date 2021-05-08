@@ -63,12 +63,22 @@ router.post('/clientes/add', isAuthenticated, async (req, res) => {
 
 
  router.get('/clientes', isAuthenticated, async (req,res) =>{ 
-    const listaClientes = await Cliente.find().lean();/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
-    for (i=0; i<listaClientes.length;i++){
-        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
-        listaClientes[i].contador = i+1;
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        const listaClientes = await Cliente.find({$or:[{nombre:regex},{ci:regex},{empresaOrganizacion:regex},{nit:regex},{descripcionCliente:regex}]}).lean(); 
+        for (i=0; i<listaClientes.length;i++){
+         listaClientes[i].contador = i+1;
+        }
+        res.render('Ventas/clientes', { listaClientes });
+       }
+       else{
+           const listaClientes = await Cliente.find().lean();/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+       for (i=0; i<listaClientes.length;i++){
+           /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+           listaClientes[i].contador = i+1;
+       }
+       res.render('Ventas/clientes', { listaClientes });
     }
-    res.render('Ventas/clientes', { listaClientes });
 });
 
 
@@ -158,13 +168,21 @@ router.post('/ventas/add', isAuthenticated, async (req, res) => {
      }  
  });
  router.get('/ventas', isAuthenticated, async (req,res) =>{ 
-    const listaVentas = await (await Venta.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
-    for (i=0; i<listaVentas.length;i++){
-        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
-        listaVentas[i].contador = i+1;
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        const listaVentas = await (await Venta.find({$or:[{productoVendido:regex},{seleccionCliente:regex},{descripcionVenta:regex}]}).lean());
+        for (i=0; i<listaVentas.length;i++){
+        listaVentas[i].contador = i+1;}
+        res.render('Ventas/ventas', { listaVentas });
     }
-    res.render('Ventas/ventas', { listaVentas });
-    //res.send({listaVentas});
+       else{
+        const listaVentas = await (await Venta.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+        for (i=0; i<listaVentas.length;i++){
+            /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+            listaVentas[i].contador = i+1;
+        }
+        res.render('Ventas/ventas', { listaVentas });
+        }
 });
 
 
@@ -187,14 +205,24 @@ router.put('/ventas/editVentas/:id', isAuthenticated, async (req, res) => {
 ///////////////////////   Seguimiento de deudas de los clientes  //////////////////////////////////
 
 
-   router.get('/ventas/seguimiento', isAuthenticated, async (req,res) =>{ 
-    const listaDeudores = await Venta.find({saldo:{$ne: 0}}).lean();
-    for (i=0; i<listaDeudores.length;i++){
-        /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+router.get('/ventas/seguimiento', isAuthenticated, async (req,res) =>{ 
+ if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        const listaDeudores = await Venta.find({$or:[{saldo:{$ne: 0},seleccionCliente:regex},{saldo:{$ne: 0},productoVendido:regex},{saldo:{$ne: 0},descripcionVenta:regex}]}).lean();
+      for (i=0; i<listaDeudores.length;i++){
         listaDeudores[i].contador = i+1;
-    }   
-/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
-    res.render('Ventas/seguimientoDeudas', { listaDeudores });
+        } 
+        res.render('Ventas/seguimientoDeudas', { listaDeudores });
+  }
+  else{
+     const listaDeudores = await Venta.find({saldo:{$ne: 0}}).lean();
+      for (i=0; i<listaDeudores.length;i++){
+    /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
+        listaDeudores[i].contador = i+1;
+        }   
+    /* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+        res.render('Ventas/seguimientoDeudas', { listaDeudores });
+  }
 });
 
 
@@ -264,7 +292,9 @@ router.put('/ventas/cobrodeuda/:id', isAuthenticated, async (req, res) => {
 
 
 
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 /* router.delete('/notes/delete/:id', isAuthenticated, async (req, res) =>{
  await Note.findByIdAndDelete(req.params.id);
@@ -272,3 +302,4 @@ router.put('/ventas/cobrodeuda/:id', isAuthenticated, async (req, res) => {
  res.redirect('/notes');
 }) */
 module.exports = router;
+//module.exports = Venta;

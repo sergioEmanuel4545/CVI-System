@@ -190,6 +190,19 @@ router.put('/productos/editProducto/:id', isAuthenticated, async (req, res) => {
 /*                            Existencias                                                                    */
 
 router.get('/inventarios/existencias', isAuthenticated, async (req, res) => {
+    if(req.query.search){
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    const listaCategorias = await Categoria.find().lean();
+    const listaMoPos = await MoPo.find().lean();
+    const listaProductos = await Producto.find().lean();
+    const CEx = 100001 + (await Existencia.countDocuments()) + (await ExistenciaArchivada.countDocuments());
+    const  CLID = ("L"+CEx);
+    let listaExistencias = await Existencia.find({$or:[{ingresoMoPo:regex},{ingresoProducto:regex},{CodeLoteId:regex},{descripcionIngreso:regex}]}).lean();
+    for (i=0; i<listaExistencias.length;i++){
+        listaExistencias[i].contador = i+1;  }
+        res.render('Inventarios/existencias', {CLID,listaExistencias,listaCategorias,listaMoPos,listaProductos});
+    }
+    else{
     const listaCategorias = await Categoria.find().lean();
     const listaMoPos = await MoPo.find().lean();
     const listaProductos = await Producto.find().lean();
@@ -198,9 +211,8 @@ router.get('/inventarios/existencias', isAuthenticated, async (req, res) => {
     let listaExistencias = await Existencia.find().lean();
     for (i=0; i<listaExistencias.length;i++){
         listaExistencias[i].contador = i+1;  }
-  
         res.render('Inventarios/existencias', {CLID,listaExistencias,listaCategorias,listaMoPos,listaProductos}); 
-  
+    }
     });
 
 
@@ -345,24 +357,26 @@ router.put('/existencias/retiroExistencia/:id', isAuthenticated, async (req, res
 /*                            Historial (existencias archivadas)                                                                    */
 
 
-router.get('/inventarios/historial',  isAuthenticated,  async (req,res) =>{ 
+router.get('/inventarios/historial',  isAuthenticated,  async (req,res) =>{
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        let listaExistenciasArchivadas = await ExistenciaArchivada.find({$or:[{ingresoMoPo:regex},{ingresoProducto:regex},{CodeLoteId:regex},{descripcionIngreso:regex}]}).lean();
+        for (i=0; i<listaExistenciasArchivadas.length;i++){
+            listaExistenciasArchivadas[i].contador = i+1;
+        } 
+        res.render('Inventarios/historial',{listaExistenciasArchivadas}); 
+    }
+    else{
      let listaExistenciasArchivadas = await ExistenciaArchivada.find().lean();
     for (i=0; i<listaExistenciasArchivadas.length;i++){
         listaExistenciasArchivadas[i].contador = i+1;
     } 
     res.render('Inventarios/historial',{listaExistenciasArchivadas}); 
+    }
 });
 
-
-
-
-
-
-
-
-
-
-
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

@@ -41,12 +41,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-//global varialbes
+//global variables
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.nameU = req.user || null;
+    res.locals.currentURL = req.url;
+    if(res.locals.currentURL !== '/inventarios/existencias' && res.locals.currentURL !== '/inventarios/historial'
+    && res.locals.currentURL !== '/inventarios/categorias' && res.locals.currentURL !== '/inventarios/mopos'
+    && res.locals.currentURL !== '/inventarios/productos'){
+        res.locals.currentURL = null;}
+        
     next();
 })
 

@@ -27,10 +27,10 @@ router.post('/blabla/sergio1', isAuthenticated, async (req, res) => {
     //PROCESO DE VALIDACION
     const errors = [];
     if(!title){
-        errors.push({text: 'Please write a title'});
+        errors.push({text: 'Por favor escribe un título'});
    }
     if(!description){
-      errors.push({text: 'please write a description' });
+      errors.push({text: 'Por favor escribe una descripción' });
     }
     if(errors.length > 0){
        res.render('notes/new-note', {
@@ -43,7 +43,7 @@ router.post('/blabla/sergio1', isAuthenticated, async (req, res) => {
         newNote.user = req.user.id; 
 //codigo especial para consultar solo las notas que pernetecen a un Usuario
         await newNote.save();        
-        req.flash('success_msg', 'Note added successfully');
+        req.flash('success_msg', 'Nota/Tarea creada correctamente');
         res.redirect('/notes');
     }  
 });
@@ -51,10 +51,16 @@ router.post('/blabla/sergio1', isAuthenticated, async (req, res) => {
 
 
    router.get('/notes', isAuthenticated, async (req,res) =>{ 
+       if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        const notes = await Note.find({$or:[{user: req.user.id,title: regex},{user: req.user.id,description: regex}]}).sort({date: 'desc'}).lean();  
+      res.render('notes/all-notes', { notes });
+       }
+       else{
     const notes = await Note.find({user: req.user.id}).sort({date: 'desc'}).lean();  
 //codigo especial para consultar solo las notas que pernetecen a un Usuario
       res.render('notes/all-notes', { notes });
-   
+    }
 });
 
 router.get('/notes/edit/:id', isAuthenticated, async (req,res) =>{
@@ -65,13 +71,19 @@ router.get('/notes/edit/:id', isAuthenticated, async (req,res) =>{
 router.put('/notes/edit-note/:id', isAuthenticated, async (req, res) => {
  const {title, description} = req.body;
  await Note.findByIdAndUpdate(req.params.id, {title, description});
- req.flash('success_msg', 'Note updated successfully');
+ req.flash('success_msg', 'Nota/Tarea actualizada correctamente');
  res.redirect('/notes');
 }); 
 
 router.delete('/notes/delete/:id', isAuthenticated, async (req, res) =>{
  await Note.findByIdAndDelete(req.params.id);
- req.flash('error_msg', 'Note deleted successfully');
+ req.flash('error_msg', 'Nota/Tarea Borrada correctamente');
  res.redirect('/notes');
 }) 
+
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 module.exports = router;

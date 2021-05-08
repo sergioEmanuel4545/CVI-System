@@ -59,12 +59,22 @@ router.post('/proveedores/add', isAuthenticated, async (req, res) => {
 
 
  router.get('/proveedores', isAuthenticated, async (req,res) =>{ 
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        let listaProveedores = await Proveedor.find({$or:[{nombre:regex},{nit:regex},{contacto:regex},{descripcion:regex}]}).lean();
+        for (i=0; i<listaProveedores.length;i++){
+             listaProveedores[i].contador = i+1;
+        }
+        res.render('Compras/proveedores', { listaProveedores }); 
+    }
+    else{
     let listaProveedores = await Proveedor.find().lean();/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
     for (i=0; i<listaProveedores.length;i++){
         /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"}; */
         listaProveedores[i].contador = i+1;
     }
-    res.render('Compras/proveedores', { listaProveedores }); 
+    res.render('Compras/proveedores', { listaProveedores });
+    } 
 });
 
 
@@ -155,12 +165,22 @@ router.post('/compras/add', isAuthenticated, async (req, res) => {
      }  
  });
  router.get('/compras', isAuthenticated, async (req,res) =>{ 
-    const listaCompras = await (await Compra.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        let listaCompras = await Compra.find({$or:[{productoComprado:regex},{seleccionProveedor:regex},{descripcionCompra:regex}]}).lean();
+        for (i=0; i<listaCompras.length;i++){
+             listaCompras[i].contador = i+1;
+        }
+        res.render('Compras/compras', { listaCompras });
+    }
+    else{
+    const listaCompras = await Compra.find().lean();/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
     for (i=0; i<listaCompras.length;i++){
         /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
         listaCompras[i].contador = i+1;
     }
     res.render('Compras/compras', { listaCompras });
+    }
 });
 
 
@@ -184,6 +204,15 @@ router.put('/compras/editCompras/:id', isAuthenticated, async (req, res) => {
 
 
 router.get('/compras/controlPrestamos', isAuthenticated, async (req,res) =>{ 
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        let listaAcreedores = await Compra.find({$or:[{saldo:{$ne: 0},productoComprado:regex},{saldo:{$ne: 0},seleccionProveedor:regex},{saldo:{$ne: 0},descripcionCompra:regex}]}).lean();
+        for (i=0; i<listaAcreedores.length;i++){
+            listaAcreedores[i].contador = i+1;;
+        }
+        res.render('Compras/controlPrestamos', { listaAcreedores });
+    }
+    else{
     const listaAcreedores = await Compra.find({saldo:{$ne: 0}}).lean();
     for (i=0; i<listaAcreedores.length;i++){
         /* listaProveedores[i] ={...listaProveedores[i], contador:"hola"};  cualquiera de las dos sintaxis se puede utilizar*/
@@ -191,6 +220,7 @@ router.get('/compras/controlPrestamos', isAuthenticated, async (req,res) =>{
     }   
 /* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
     res.render('Compras/controlPrestamos', { listaAcreedores });
+    }
 });
 
 
@@ -248,7 +278,9 @@ router.put('/compras/pagodeuda/:id', isAuthenticated, async (req, res) => {
 
 
 
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 /* router.delete('/notes/delete/:id', isAuthenticated, async (req, res) =>{
  await Note.findByIdAndDelete(req.params.id);
  req.flash('error_msg', 'Note deleted successfully');

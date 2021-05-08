@@ -8,6 +8,28 @@ body {
     width: 90%;
 }
 
+.banner{
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(/img/indexImage.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.initialContent{
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  color: #fff;
+}
+.initialContent p{
+  text-align: center;
+  margin: 20px auto;
+  font-weight: 100;
+  line-height: 25px;
+}
 
 .logo2{
   border-radius: 50%;
@@ -44,8 +66,8 @@ h5{
 
   .sidebar-sticky {
     position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
+    top: 60px;
+    height: calc(93vh - 48px);
     padding-top: .5rem;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
