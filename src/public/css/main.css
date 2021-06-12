@@ -1,22 +1,70 @@
 body {
-    background: #3a6186;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #89253e, #3a6186);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #89253e, #3a6186); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #3a6186; /* fallback for old browsers */
+
+  background: -webkit-linear-gradient(
+    to right,
+    #89253e,
+    #3a6186
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #89253e,
+    #3a6186
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .logo {
-    width: 90%;
+  width: 90%;
 }
 
-.banner{
+.banner {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(/img/indexImage.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+    url(/img/indexImage.jpg);
   background-size: cover;
   background-position: center;
 }
 
-.initialContent{
+.toast {
+  position: absolute;
+  margin-left: 72%;
+  /* left: 450px; */
+  /* margin: auto; */
+  z-index: 1;
+  /*  max-width: 400px; */
+  /*  padding: 6px; */
+  /*  background: #cccccc; */
+  /*  color: #333333; */
+  /*  font-family: sans-serif; */
+  /*  text-align: center; */
+  /*  border: 1px solid #aaaaaa; */
+  /*  border-radius: 5px; */
+  /*  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+
+  /*  visibility: hidden; */
+  /*  opacity: 0; */
+  /*  transition: opacity 0.2s, top 0.2s, visibility 0.2s; */
+}
+
+/* .toast--visible { */
+/*   opacity: 1; */
+/*   visibility: visible; */
+/* } */
+
+.toast--success {
+  background: #00c02b;
+  border-color: #009d23;
+  color: #ffffff;
+}
+
+.toast--error {
+  background: #d50000;
+  border-color: #ba0000;
+  color: #ffffff;
+}
+
+.initialContent {
   width: 100%;
   position: absolute;
   top: 50%;
@@ -24,73 +72,71 @@ body {
   text-align: center;
   color: #fff;
 }
-.initialContent p{
+.initialContent p {
   text-align: center;
   margin: 20px auto;
   font-weight: 100;
   line-height: 25px;
 }
 
-.logo2{
+.logo2 {
   border-radius: 50%;
   display: block;
   margin: auto;
 }
 
 .sidebar {
-    position: absolute;
-    height: 100%;
-    width: 200px;
-    left: 0;
-    top: 0;
-    z-index: 0; /* debajo de todo */
-    padding: 4% 0 0;  /*Height of navbar */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-  }
+  position: absolute;
+  height: 100%;
+  width: 200px;
+  left: 0;
+  top: 0;
+  z-index: 0; /* debajo de todo */
+  padding: 4% 0 0; /*Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+}
 
 .sidebar ul li {
-    color: rgba(78, 78, 78, 0.9);
-    text-align: center;
-    padding: 15px 10px;
-    list-style: none;
-    border-bottom: 1px solid rgba(100, 100, 100, .3);
+  color: rgba(78, 78, 78, 0.9);
+  text-align: center;
+  padding: 15px 10px;
+  list-style: none;
+  border-bottom: 1px solid rgba(100, 100, 100, 0.3);
 }
-.sidebar a{
-    color: rgba(58, 56, 56, 0.9);
-}
-
-h5{
-    text-align: center;
+.sidebar a {
+  color: rgba(58, 56, 56, 0.9);
 }
 
+h5 {
+  text-align: center;
+}
 
+.sidebar-sticky {
+  position: relative;
+  top: 60px;
+  height: calc(93vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
   .sidebar-sticky {
-    position: relative;
-    top: 60px;
-    height: calc(93vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    position: -webkit-sticky;
+    position: sticky;
   }
-  
-  @supports ((position: -webkit-sticky) or (position: sticky)) {
-    .sidebar-sticky {
-      position: -webkit-sticky;
-      position: sticky;
-    }
-  }
-  
- .navbar{
-     z-index: 99; /* Encima de todo */
- }
+}
 
- .alert{
-     z-index: 95;  /* no tan arriba de todo */
-     margin-left:  65%;
- }
+.navbar {
+  z-index: 99; /* Encima de todo */
+}
 
+.alert {
+  z-index: 95; /* no tan arriba de todo */
+  margin-left: 65%;
+}
 
- /* On screens that are less than 700px wide, make the sidebar into a topbar */
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
 /* @media screen and (max-width: 700px) {
     .sidebar {
       width: 100%;
@@ -102,7 +148,7 @@ h5{
     div.content {margin-left: 0;}
   }
    */
-  /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
 /*   @media screen and (max-width: 400px) {
     .sidebar a {
       text-align: center;
