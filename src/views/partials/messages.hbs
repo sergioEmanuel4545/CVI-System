@@ -1,14 +1,17 @@
 {{#if success_msg}}
 {{!-- <div class="alert alert-success alert-dismissible fade show" role="alert"> --}}
-{{!--     <!--warning=amarillo danger=rojo--> --}}
-{{!--   {{success_msg}} --}}
-{{!--   <button type="button" class="close" data-dismiss="alert" aria-label="Close"> --}}
-{{!--     <span aria-hidden="true">&times;</span> --}}
-{{!--   </button> --}}
-{{!-- </div> --}}
+  {{!--
+  <!--warning=amarillo danger=rojo--> --}}
+  {{!-- {{success_msg}} --}}
+  {{!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> --}}
+    {{!-- <span aria-hidden="true">&times;</span> --}}
+    {{!-- </button> --}}
+  {{!--
+</div> --}}
 
 {{!-- <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;"> --}}
-  <div id="toast1" class="toast toast--visible toast--success" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true" >
+  <div id="toast1" class="toast toast--visible toast--success" data-delay="5000" role="alert" aria-live="assertive"
+    aria-atomic="true">
     <div class="toast-body">
       {{success_msg}}
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -16,19 +19,23 @@
       </button>
     </div>
   </div>
-{{!-- </div> --}}
+  {{!--
+</div> --}}
 {{/if}}
-    <!--los mensajes son una varible unica, osea no son un areglo, por lo que no corresponde poner con each si no con if-->
-    {{#if error_msg}}
+<!--los mensajes son una varible unica, osea no son un areglo, por lo que no corresponde poner con each si no con if-->
+{{#if error_msg}}
 {{!-- <div class="alert alert-danger alert-dismissible fade show" role="alert"> --}}
-{{!--     <!--warning=amarillo danger=rojo--> --}}
-{{!--   {{error_msg}} --}}
-{{!--   <button type="button" class="close" data-dismiss="alert" aria-label="Close"> --}}
-{{!--     <span aria-hidden="true">&times;</span> --}}
-{{!--   </button> --}}
-{{!-- </div> --}}
+  {{!--
+  <!--warning=amarillo danger=rojo--> --}}
+  {{!-- {{error_msg}} --}}
+  {{!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> --}}
+    {{!-- <span aria-hidden="true">&times;</span> --}}
+    {{!-- </button> --}}
+  {{!--
+</div> --}}
 
-<div id="toast2" class="toast align-items-center text-white bg-primary border-0" data-delay="5000" role="status" aria-live="polite" aria-atomic="true" >
+<div id="toast2" class="toast align-items-center text-white bg-primary border-0" data-delay="5000" role="status"
+  aria-live="polite" aria-atomic="true">
   <div class="toast-body">
     {{error_msg}}
     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">

@@ -13,7 +13,7 @@ const CompraSchema = new Schema({
   saldo: { type: Number, required: false },
   montoPagadoCompra: { type: Number, required: false },
   Saldo: { type: Number, required: false },
-  fechaDelSigPago: { type: Date, required: false },
+  fechaDelSigPago: { type: String, required: false },
   fechaDeCompra: { type: String, required: true },
   descripcionCompra: { type: String, required: false },
   date: { type: Date, default: Date.now },

@@ -7,6 +7,7 @@ const ExistenciaArchivadaSchema = new Schema({
   ingresoProducto: { type: String, required: false },
   ingresoCantidad: { type: Number, required: true },
   CodeLoteId: { type: String, required: true },
+  fechaDeIngreso: { type: String, default: new Date().toISOString().substring(0, 16)},
   fechaVencimientoIngreso: { type: String, required: true },
   descripcionIngreso: { type: String, required: false },
   date: { type: Date, default: Date.now },

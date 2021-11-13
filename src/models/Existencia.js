@@ -8,6 +8,7 @@ const ExistenciaSchema = new Schema({
   ingresoCantidad: { type: Number, required: true },
   cantidadDeInicio: { type: Number, required: false },
   CodeLoteId: { type: String, required: true },
+  fechaDeIngreso: { type: String, default: new Date().toISOString().substring(0, 16)},
   fechaVencimientoIngreso: { type: String, required: true },
   descripcionIngreso: { type: String, required: false },
   date: { type: Date, default: Date.now },

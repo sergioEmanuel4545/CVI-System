@@ -1,7 +1,7 @@
 <div class="card">
-    <div class="card-header">
-        <h3>Registro de Ventas</h3>
-        
+  <div class="card-header">
+    <h3>Registro de Ventas</h3>
+
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
         <a class="nav-link active" href="#">Lista</a>
@@ -11,58 +11,54 @@
       </li>
     </ul>
   </div>
-    <div class="card_body">
-        <div class="table-responsive">
-        <table class="table table-striped table-sm table-hover">
-          <thead>
-            <tr>
-              <th>Nº</th>
-              <th>Producto Vendido</th>
-              <th>Cliente</th>
-              <th>Cantidad [u]</th>
-              <th>Precio [Bs]</th>
-              <th>Fecha de Venta</th>
-              <th>Al contado</th>
-              <th>cantidad ya cobrada [Bs]</th>
-              <th>Saldo [Bs]</th>
-              <th>Fecha del siguiente cobro</th>
-              <th>Descripcion</th>
-            </tr>
-          </thead>
-          <tbody>
-        {{#each listaVentas}}
-            <tr>
-              <td>{{contador}}</td>
-              <td>{{productoVendido}}</td>
-              <td>{{seleccionCliente}}</td>
-              <td>{{cantidadVendida}}</td>
-              <td>{{precio}}</td>
-              <td>{{fechaDeVenta}}</td>
-              <td>{{alContado}}</td>
-              <td>{{montoPagado}}</td>
-              <td>{{saldo}}</td>
-              <td>{{fechaDelSigCobro}}</td>
-              <td>{{descripcionVenta}}</td>
-              <td><a href="/ventas/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
-            </tr>                   
-        {{else}}
-           <tr>
-              <td> </td>
-              <td> </td>
-              <td> </td>
-              <td> </td>
-              <td> </td>
-            </tr>
-        {{/each}}  
-            </tbody>
-        </table>
-      </div>
+  <div class="card_body">
+    <div class="table-responsive table-bordered">
+      <table class="table table-striped table-sm table-hover">
+        <thead>
+          <tr>
+            <th>Nº</th>
+            <th>Producto Vendido</th>
+            <th>Cliente</th>
+            <th>Cantidad [u]</th>
+            <th>Precio [Bs]</th>
+            <th>Fecha de Venta</th>
+            <th>Al contado</th>
+            <th>Cantidad ya cobrada [Bs]</th>
+            <th>Saldo [Bs]</th>
+            <th>Fecha del siguiente cobro</th>
+            <th>Descripcion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each listaVentas}}
+          <tr>
+            <td>{{contador}}</td>
+            <td>{{productoVendido}}</td>
+            <td>{{seleccionCliente}}</td>
+            <td>{{cantidadVendida}}</td>
+            <td>{{precio}}</td>
+            <td>{{fechaDeVenta}}</td>
+            <td>{{alContado}}</td>
+            <td>{{montoPagado}}</td>
+            <td>{{saldo}}</td>
+            <td>{{fechaDelSigCobro}}</td>
+            <td>{{descripcionVenta}}</td>
+            <td><a href="/ventas/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
+          </tr>
+          {{else}}
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
     </main>
   </div>
 </div>
-    </div>
 </div>
-
-
-
-
+</div>

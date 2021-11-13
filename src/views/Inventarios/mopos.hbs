@@ -2,111 +2,113 @@
     <div class="row">
         {{>sidebar}}
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            
+
             <div class="card">
-            <div class="card-header">
-                <h3>Materia Prima</h3>
-                
-            <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link active">Lista</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link lead" href="" data-toggle="modal" data-target="#modalMOPO"><i class="fas fa-plus-circle"></i></a>
-            </li>
-            </ul>
-            </div>
+                <div class="card-header">
+                    <h3>Materia Prima</h3>
+
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active">Lista</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link lead" href="" data-toggle="modal" data-target="#modalMOPO"><i
+                                    class="fas fa-plus-circle"></i></a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="card_body">
-                    <div class="table-responsive">
-                    <table class="table table-striped table-sm table-hover">
-                    <thead>
-                        <tr>
-                        <th>Nº</th>
-                        <th>Nombre MoPo</th>
-                        <th>Categoria</th>
-                        <th>Descripcion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {{#each listaMoPos}}
-                        <ol>
-                        <tr>
-                        <td>{{contador}}</td>
-                        <td>{{nombreMoPo}}</td>
-                        <td>{{seleccionCategoria}}</td>
-                        <td>{{descripcionMoPo}}</td>
-                        <td><a href="/mopos/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
-                        </tr>
-                    </ol>     
-                                
-                    {{else}}
-                    <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        </tr>
-                    {{/each}}  
-                        </tbody>
-                    </table>
-                </div>
-                </main>
-            </div>
-            </div>
-                </div>
-            </div>
+                    <div class="table-responsive table-bordered">
+                        <table class="table table-striped table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nº</th>
+                                    <th>Nombre MoPo</th>
+                                    <th>Categoria</th>
+                                    <th>Descripcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each listaMoPos}}
+                                <ol>
+                                    <tr>
+                                        <td>{{contador}}</td>
+                                        <td>{{nombreMoPo}}</td>
+                                        <td>{{seleccionCategoria}}</td>
+                                        <td>{{descripcionMoPo}}</td>
+                                        <td><a href="/mopos/edit/{{_id}}"><i class="fas fa-edit"></i></a></td>
+                                    </tr>
+                                </ol>
+
+                                {{else}}
+                                <tr>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
         </main>
-
-
-{{!---------------------------- MODALS --------------------------------}}
-{{!---------------------------- MODALS --------------------------------}}
-{{!---------------------------- MODALS --------------------------------}}
-
-    <div class="modal fade" id="modalMOPO" tabindex="-1" role="dialog" aria-labelledby="modalMOPOLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalMOPOLabel">Materia Prima Nueva</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action ="/mopos/add" method="POST">          
-          <div class="form-group row">              
-                <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Materia Prima</label>
-                <div class="col-sm mx-auto">
-                <input type = "text" name="nombreMoPo" class="form-control" placeholder="" id="inputname1" value="{{nombreMoPo}}"
-                    autofocus>                   
-                </div>
-            </div>
-        <div class="form-group row">
-                <label for="inputState" class="col-sm-3 col-form-label text-sm-center">Categorias</label>
-            <div class="col-sm mx-auto">
-                <select id="inputState" class="form-control" name="seleccionCategoria" >
-                    <option >...</option>
-                    {{#each listaCategorias}}
-                    <option >{{nombreCategoria}}</option>
-                    {{/each}}
-                </select>
-            </div>
-        </div>
-            <div class="form-group">
-                <textarea name="descripcionMoPo" class="form-control" placeholder="Informacion adicional">{{descripcionMoPo}}</textarea>
-            </div>
-        <div class="modal-footer">
-             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-             <div class="form-group">
-                <button class="btn btn-primary btn-block" type="submit">
-                    Guardar nueva Materia Prima
-                </button>
-             </div>
-        </div>
-        </form>
-      </div>      
     </div>
-  </div>
+</div>
+</div>
+</div>
+</main>
+
+
+{{!---------------------------- MODALS --------------------------------}}
+{{!---------------------------- MODALS --------------------------------}}
+{{!---------------------------- MODALS --------------------------------}}
+
+<div class="modal fade" id="modalMOPO" tabindex="-1" role="dialog" aria-labelledby="modalMOPOLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalMOPOLabel">Materia Prima Nueva</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/mopos/add" method="POST">
+                    <div class="form-group row">
+                        <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Materia Prima</label>
+                        <div class="col-sm mx-auto">
+                            <input type="text" name="nombreMoPo" class="form-control" placeholder="" id="inputname1"
+                                value="{{nombreMoPo}}" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputState" class="col-sm-3 col-form-label text-sm-center">Categorias</label>
+                        <div class="col-sm mx-auto">
+                            <select id="inputState" class="form-control" name="seleccionCategoria">
+                                <option>...</option>
+                                {{#each listaCategorias}}
+                                <option>{{nombreCategoria}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="descripcionMoPo" class="form-control"
+                            placeholder="Informacion adicional">{{descripcionMoPo}}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit">
+                                Guardar nueva Materia Prima
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 </div>

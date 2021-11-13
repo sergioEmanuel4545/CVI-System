@@ -1,96 +1,108 @@
 <div class="card">
     <div class="card-header">
-        <h3>Reporte Compras y Ventas</h3>        
-    <ul class="nav nav-pills card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="/reportes/compras">Compras</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link lead" href="/reportes/ventas">Ventas</a>
-      </li>
-    </ul>
-  </div>
-<div class="row">
-    <div class="col">
+        <h3>Estadísticas Breves</h3>
+        <ul class="nav nav-pills card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="/reportes/compras">Compras</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link lead" href="/reportes/ventas">Ventas</a>
+            </li>
+            {{!-- <li class="nav-item">
+                <a class="nav-link lead" href="" data-toggle="modal" data-target="#modalRepCompraCalendar"><i
+                        class="fas fa-calendar-alt"></i></a>
+            </li> --}}
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col ">
-                            <div class="row justify-content-center"><h4>Total Proveedores</h4></div>
-                            <div class="row justify-content-center"><h1><i class="fas fa-truck-loading fa-lg"></i></h1></div>
+                            <div class="row justify-content-center">
+                                <h4>Total Proveedores</h4>
+                            </div>
+                            <div class="row justify-content-center">
+                                <h1><i class="fas fa-truck-loading fa-lg"></i></h1>
+                            </div>
                         </div>
-                        <div class="col col col-lg-4 text-center"><h1><span class="badge rounded-pill bg-info text-dark w-50 p-3">{{countProveedor}}</span></h1></div>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col ">
-                        <div class="row justify-content-center">
-                            <h4>Total Compras</h4>
+                        <div class="col col col-lg-4 text-center">
+                            <h1><span class="badge rounded-pill bg-info text-dark">{{countProveedor}}</span>
+                            </h1>
                         </div>
-                        <div class="row justify-content-center">
-                            <h1><i class="fas fa-shopping-bag fa-lg"></i></h1>
-                        </div>
-                    </div>
-                    <div class="col col col-lg-4 text-center">
-                        <h1><span class="badge rounded-pill bg-info text-dark w-50 p-3">{{countCompra}}</span></h1>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-            <div class="row">
-                <div class="col ">
-                    <div class="row justify-content-center">
-                        <h4>Prestamos Pendientes</h4>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col ">
+                            <div class="row justify-content-center">
+                                <h4>Total Compras</h4>
+                            </div>
+                            <div class="row justify-content-center">
+                                <h1><i class="fas fa-shopping-bag fa-lg"></i></h1>
+                            </div>
+                        </div>
+                        <div class="col col col-lg-4 text-center">
+                            <h1><span class="badge rounded-pill bg-info text-dark ">{{countCompra}}</span></h1>
+                        </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <h1><i class="fas fa-file-invoice-dollar fa-lg"></i></h1>
-                    </div>
-                </div>
-                <div class="col col col-lg-4 text-center">
-                    <h1><span class="badge rounded-pill bg-info text-dark w-50 p-3">{{countAcreedores}}</span></h1>
                 </div>
             </div>
         </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col ">
+                            <div class="row justify-content-center">
+                                <h4>Prestamos Pendientes</h4>
+                            </div>
+                            <div class="row justify-content-center">
+                                <h1><i class="fas fa-file-invoice-dollar fa-lg"></i></h1>
+                            </div>
+                        </div>
+                        <div class="col col col-lg-4 text-center">
+                            <h1><span class="badge rounded-pill bg-info text-dark ">{{countAcreedores}}</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-    
 </div>
 </div>
-    </div>
-</div>
 
 
 
 
 
 
-{{!--  --}}
+
 {{!---------------------------- MODALS --------------------------------}}
 {{!---------------------------- MODALS --------------------------------}}
 {{!---------------------------- MODALS --------------------------------}}
 
-{{!-- <div class="modal fade" id="modalINGRESOINV" tabindex="-1" role="dialog" aria-labelledby="modalINGRESOINVLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalRepCompraCalendar" tabindex="-1" role="dialog"
+    aria-labelledby="modalRepCompraCalendarLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalINGRESOINVLabel">Nuevo Ingreso</h5>
+                <h5 class="modal-title" id="modalRepCompraCalendarLabel">Rango de Fechas</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/existencias/add" method="POST">
+                <form action="/reportes/compras/calendar" method="POST">
 
-                    <div class="form-group row">
+                    {{!-- <div class="form-group row">
                         <label for="inputState" class="col-sm-3 col-form-label text-sm-center">MoPo</label>
                         <div class="col-sm mx-auto">
                             <select id="inputState" class="form-control" name="ingresoMoPo">
@@ -110,8 +122,6 @@
                                 {{/each}}
                             </select>
                         </div>
-
-
                     </div>
                     <div class="form-group row">
                         <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Cantidad</label>
@@ -127,25 +137,33 @@
                             <input type="text" name="CodeLoteId" class="form-control" placeholder="" id="inputname1"
                                 value="{{CLID}}" readonly>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
                         <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Fecha de
-                            Vencimiento</label>
+                            Inicio</label>
                         <div class="col-sm mx-auto">
-                            <input type="date" name="fechaVencimientoIngreso" class="form-control" placeholder=""
-                                id="inputname1" value="{{fechaVencimientoIngreso}}" required>
+                            <input type="date" name="fechaInicioRepCompra" class="form-control" placeholder=""
+                                id="inputname1" value="{{fechaInicioRepCompra}}" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputname1" class="col-sm-3 col-form-label text-sm-center">Fecha
+                            Final</label>
+                        <div class="col-sm mx-auto">
+                            <input type="date" name="fechaFinalRepCompra" class="form-control" placeholder=""
+                                id="inputname1" value="{{fechaFinalRepCompra}}" required>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    {{!-- <div class="form-group">
                         <textarea name="descripcionIngreso" class="form-control"
                             placeholder="Informacion adicional">{{descripcionIngreso}}</textarea>
-                    </div>
+                    </div> --}}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <div class="form-group">
                             <button class="btn btn-primary btn-block" type="submit">
-                                Registrar Ingreso
+                                Ingresar Rango de Fechas
                             </button>
                         </div>
                     </div>
@@ -155,4 +173,4 @@
     </div>
 </div>
 </div>
-</div> --}}
+</div>

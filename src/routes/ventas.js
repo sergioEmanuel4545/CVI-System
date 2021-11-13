@@ -140,8 +140,11 @@ router.post('/ventas/add', isAuthenticated, async (req, res) => {
         errors.push({text: 'No se permiten valores negativos'});
     }
     if (!alContado){//¿Xq no sirve alContado != true??? probamos y no cumple
-        if(montoPagado > precio){//¿Xq no sirve montoPagado > precio no cumple la condicion ni la logica!
-            errors.push({text: 'El monto pagado es mayor o igual que el precio'});
+        if(montoPagado >> precio){
+          //¿Xq no sirve montoPagado > precio no cumple la condicion ni la logica!=> xq en JS si tiene otra sintaxis al momento de comparar dos numbers ">>" es el correcto indicador
+          errors.push({
+            text: "El monto pagado es mayor o igual que el precio",
+          });
         }
     }    
     if(!fechaDelSigCobro && !alContado){

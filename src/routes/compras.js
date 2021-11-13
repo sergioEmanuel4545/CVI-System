@@ -106,7 +106,7 @@ router.get('/compras/add', isAuthenticated, async (req,res) =>{
     const listaProveedores = await (await Proveedor.find().lean());/* {user: req.user.id}    .sort({date: 'desc'}) para que lo ultimo que ingresaste te aparezca primero*/
     res.render('Compras/addCompras', { listaProveedores });
 });
-router.post('/compras/add', isAuthenticated, async (req, res) => {
+router.post('/compras/add', /* isAuthenticated, */ async (req, res) => {
     let {productoComprado, seleccionProveedor, cantidadComprada, costo, fechaDeCompra, alContado,montoPagadoCompra,fechaDelSigPago,descripcionCompra}= req.body;
     //PROCESO DE VALIDACION
      const errors = [];
@@ -137,7 +137,7 @@ router.post('/compras/add', isAuthenticated, async (req, res) => {
         errors.push({text: 'No se permiten valores negativos'});
     }
     if (!alContado){//¿Xq no sirve alContado != true??? probamos y no cumple => xq JS tiene otra logaica al momento de comparar booleanos
-        if(montoPagadoCompra > costo){//¿Xq no sirve montoPagado > precio no cumple la condicion ni la logica!
+        if(montoPagadoCompra >> costo){//¿Xq no sirve montoPagado > precio no cumple la condicion ni la logica! => xq en JS si tiene otra sintaxis al momento de comparar dos numbers ">>" es el correcto indicador 
             errors.push({text: 'El monto pagado es mayor o igual que el costo'});
         }
     }    

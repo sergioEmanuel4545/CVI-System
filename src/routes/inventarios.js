@@ -12,10 +12,20 @@ const { isAuthenticated } = require('../helpers/auth');
 
 
 router.get('/inventarios/categorias', isAuthenticated, async (req,res) =>{ 
-    let listaCategorias = await Categoria.find().lean();
+     if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        const listaCategorias = await Categoria.find({$or:[{nombreCategoria:regex},{descripcionCategoria:regex}]}).lean(); 
+        for (i=0; i<listaCategorias.length;i++){
+         listaCategorias[i].contador = i+1;
+        }
+        res.render('Inventarios/categorias', { listaCategorias });
+       }
+       else{
+           let listaCategorias = await Categoria.find().lean();
     for (i=0; i<listaCategorias.length;i++){
         listaCategorias[i].contador = i+1;  }
    res.render('Inventarios/categorias', {listaCategorias}); 
+    }
 });
 
 router.post('/categorias/add', isAuthenticated, async (req, res) => {
@@ -64,12 +74,25 @@ router.put('/categorias/editCategoria/:id', isAuthenticated, async (req, res) =>
 /* |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 /*                            MoPos                                                                    */
 router.get('/inventarios/mopos', isAuthenticated, async (req,res) =>{ 
+     if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        const listaCategorias = await Categoria.find().lean();
+        const listaMoPos = await MoPo.find({$or:[{nombreMoPo:regex},{seleccionCategoria:regex},{descripcionMoPo:regex}]}).lean(); 
+        for (i=0; i<listaMoPos.length;i++){
+         listaMoPos[i].contador = i+1;
+        }
+        res.render('Inventarios/mopos', { listaMoPos,listaCategorias });
+       }
+       else{
+           
     const listaCategorias = await Categoria.find().lean();
     let listaMoPos = await MoPo.find().lean();
     for (i=0; i<listaMoPos.length;i++){
         listaMoPos[i].contador = i+1;  }
    res.render('Inventarios/mopos', {listaMoPos,listaCategorias}); 
+    }
 });
+
 router.post('/mopos/add', isAuthenticated, async (req, res) => {
     const {nombreMoPo,seleccionCategoria, descripcionMoPo}= req.body;
     //PROCESO DE VALIDACION
@@ -124,12 +147,24 @@ router.put('/mopos/editMoPo/:id', isAuthenticated, async (req, res) => {
 /*                            Productos                                                                    */
 
 router.get('/inventarios/productos', isAuthenticated, async (req,res) =>{ 
-    const listaCategorias = await Categoria.find().lean();
-    let listaProductos = await Producto.find().lean();
-    for (i=0; i<listaProductos.length;i++){
-        listaProductos[i].contador = i+1;  }
-   res.render('Inventarios/productos', {listaProductos,listaCategorias}); 
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        const listaCategorias = await Categoria.find().lean();
+        const listaProductos = await Producto.find({$or:[{nombreProducto:regex},{seleccionCategoria:regex},{descripcionProducto:regex}]}).lean(); 
+        for (i=0; i<listaProductos.length;i++){
+         listaProductos[i].contador = i+1;
+        }
+        res.render('Inventarios/productos', {listaProductos,listaCategorias}); 
+       }
+       else{
+        const listaCategorias = await Categoria.find().lean();
+        let listaProductos = await Producto.find().lean();
+        for (i=0; i<listaProductos.length;i++){
+            listaProductos[i].contador = i+1;  }
+              res.render('Inventarios/productos', {listaProductos,listaCategorias}); 
+    }
 });
+
 router.post('/productos/add', isAuthenticated, async (req, res) => {
     const {nombreProducto,seleccionCategoria, descripcionProducto}= req.body;
     //PROCESO DE VALIDACION
@@ -206,6 +241,13 @@ router.get('/inventarios/existencias', isAuthenticated, async (req, res) => {
     const listaCategorias = await Categoria.find().lean();
     const listaMoPos = await MoPo.find().lean();
     const listaProductos = await Producto.find().lean();
+    /* const dateISO = await Existencia.find({},{fechaVencimientoIngreso:1, _id:0});
+    console.log(dateISO);
+    date = new Date('2013-08-03T02:00:00Z');
+    console.log(date);
+   const dateString =  dateISO.toString().substring(0, 10); */
+    /* const dateString = dateISO.toString(); */
+   /*  console.log(dateString); */
     const CEx = 100001 + (await Existencia.countDocuments()) + (await ExistenciaArchivada.countDocuments());
     const  CLID = ("L"+CEx);
     let listaExistencias = await Existencia.find().lean();
@@ -323,7 +365,6 @@ router.put('/existencias/retiroExistencia/:id', isAuthenticated, async (req, res
          });
     }else{
         const resta = existencia.ingresoCantidad - retiroCantidad;
-        console.log()
         await Existencia.findByIdAndUpdate(req.params.id, {ingresoCantidad: resta});
         req.flash('success_msg', 'Retiro Registrado correctamente');
         if(resta == 0){
@@ -335,7 +376,7 @@ router.put('/existencias/retiroExistencia/:id', isAuthenticated, async (req, res
                 CodeLoteId: existencia.CodeLoteId,
                 fechaVencimientoIngreso: existencia.fechaVencimientoIngreso,
                 descripcionIngreso: existencia.descripcionIngreso,
-                date: existencia.date});
+                fechaDeIngreso: existencia.fechaDeIngreso});
             await Existencia.deleteOne({ingresoCantidad: 0});
         }
         res.redirect('/inventarios/existencias');

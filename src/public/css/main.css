@@ -1,6 +1,5 @@
 body {
   background: #3a6186; /* fallback for old browsers */
-
   background: -webkit-linear-gradient(
     to right,
     #89253e,
@@ -11,6 +10,7 @@ body {
     #89253e,
     #3a6186
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
 }
 
 .logo {
@@ -27,39 +27,42 @@ body {
 }
 
 .toast {
-  position: absolute;
+  position: relative;
+  top: 5px;
   margin-left: 72%;
   /* left: 450px; */
   /* margin: auto; */
   z-index: 1;
   /*  max-width: 400px; */
-  /*  padding: 6px; */
-  /*  background: #cccccc; */
+   /* padding: 6px; */
+   background: #cccccc;
   /*  color: #333333; */
-  /*  font-family: sans-serif; */
-  /*  text-align: center; */
-  /*  border: 1px solid #aaaaaa; */
-  /*  border-radius: 5px; */
-  /*  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+   font-family: 'Arial';
+  /*  font-weight: bold; */
+   font-size:medium;
+   text-align: center;
+   border: 1px solid #aaaaaa;
+   border-radius: 20px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-  /*  visibility: hidden; */
-  /*  opacity: 0; */
-  /*  transition: opacity 0.2s, top 0.2s, visibility 0.2s; */
+  /*  visibility: hidden;
+   opacity: 0;
+   transition: opacity 0.2s, top 0.2s, visibility 0.2s; */
 }
 
-/* .toast--visible { */
-/*   opacity: 1; */
-/*   visibility: visible; */
-/* } */
+/* .toast--visible {
+  opacity: 1;
+  visibility: visible;
+} */
 
 .toast--success {
-  background: #00c02b;
+  background: #15aa35;
   border-color: #009d23;
   color: #ffffff;
 }
 
 .toast--error {
-  background: #d50000;
+  background: #c81111;
   border-color: #ba0000;
   color: #ffffff;
 }
@@ -88,7 +91,7 @@ body {
 .sidebar {
   position: absolute;
   height: 100%;
-  width: 200px;
+  width: 200px;/* 200px */
   left: 0;
   top: 0;
   z-index: 0; /* debajo de todo */
